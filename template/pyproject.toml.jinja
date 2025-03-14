@@ -1,0 +1,14 @@
+{%- import 'py-versions.jinja' as python %}
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "{{ project_name }}"
+description = "{{ project_description }}"
+authors = [{ name="Zauberzeug GmbH", email="info@zauberzeug.com" }]
+requires-python = "{{ python.range(python_versions) }}"
+readme = "README.md"
+
+[tool.mypy]
+python_version = "{{ python.min(python_versions) }}"
