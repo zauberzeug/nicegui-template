@@ -1,0 +1,12 @@
+[MESSAGES CONTROL]
+# Disable specific warnings
+disable=C0111,  # missing-docstring
+        C0103,  # invalid-name
+        R0913   # too-many-arguments
+
+[FORMAT]
+# Maximum number of characters on a single line
+max-line-length=120
+
+# String used as indentation unit (2 spaces, 4 spaces, or tab)
+indent-string='    '
