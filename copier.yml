@@ -5,6 +5,10 @@ project_name:
   type: str
   help: What is your project's name?
 
+project_description:
+  type: str
+  help: Shortly describe your project.
+
 module_name:
   type: str
   help: What is your Python module name?
