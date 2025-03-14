@@ -1,0 +1,9 @@
+# questions
+
+project_name:
+  type: str
+  help: What is your project's name?
+
+module_name:
+  type: str
+  help: What is your Python module name?
