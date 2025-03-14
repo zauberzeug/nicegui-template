@@ -1,0 +1,2 @@
+# NiceGUI Project Template
+
