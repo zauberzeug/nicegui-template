@@ -1,0 +1,41 @@
+{%- import 'py-versions.jinja' as python %}
+name: Run Tests
+
+on: [push]
+
+jobs:
+  code-checks:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "{{ python.min(python_versions) }}"
+          cache: "pip"
+      - name: install dependencies
+        run: pip install -r requirements-dev.txt
+      - name: mypy, ruff, pylint
+        run: |
+          mypy ./{{ project_name }} --non-interactive
+          pylint ./{{ project_name }}
+          ruff check ./{{ project_name }}
+  test:
+    strategy:
+      matrix:
+        python: {{ python_versions }}
+      fail-fast: false
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: setup up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: {% raw %}${{ matrix.python }}{% endraw %}
+          cache: "pip"
+      - name: install dependencies
+        run: pip install -r requirements-dev.txt
+      - name: pytest
+        run: pytest
