@@ -1,0 +1,18 @@
+{# Return the minimum python version supported #}
+{% macro min(py_versions) -%}
+{{ py_versions[0] }}
+{%- endmacro -%}
+
+{# Return the maximum python version supported #}
+{% macro max(py_versions) -%}
+{%- set n = py_versions | length -%}
+{{ py_versions[n-1] }}
+{%- endmacro -%}
+
+{# Return min and max python version #}
+{% macro range(py_versions) -%}
+{%- if py_versions | length == 1 %}
+"=={{ py_versions[0] }}"
+{%- endif %}
+">={{ min(py_versions) }}, <={{ max(py_versions) }}"
+{%- endmacro -%}
