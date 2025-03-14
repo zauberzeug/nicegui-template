@@ -12,3 +12,21 @@ project_description:
 module_name:
   type: str
   help: What is your Python module name?
+
+use_poetry:
+  type: bool
+  help: Would you like to use Poetry for dependency management?
+  default: false
+
+python_versions:
+  type: str
+  help: What versions of python does your project support? Testing will be done with all of these.
+  default: ["3.9", "3.10", "3.11", "3.12"]
+  multiselect: true
+  choices:
+    "3.8 (end-of-life)": "3.8"
+    "3.9": "3.9"
+    "3.10": "3.10"
+    "3.11": "3.11"
+    "3.12": "3.12"
+    "3.13": "3.13"
