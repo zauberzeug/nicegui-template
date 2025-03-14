@@ -15,6 +15,7 @@ def contains_standard_files(result: Result):
             print('Standard file was not found in generated project:', file)
     return all_found
 
+
 def test_basic_template(copie: Copie):
     result = copie.copy(extra_answers={'project_name': 'helloworld',
                                        'project_description': '',
@@ -23,3 +24,4 @@ def test_basic_template(copie: Copie):
     assert result.exit_code == 0
     assert result.exception is None
     assert result.project_dir.is_dir()
+    assert contains_standard_files(result)
