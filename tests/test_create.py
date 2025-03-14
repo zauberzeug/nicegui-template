@@ -42,7 +42,8 @@ def perform_ruff_run(result: Result):
 
 
 def perform_mypy_run(result: Result):
-    mypy_result: CompletedProcess = subprocess.run(['mypy', '.'], cwd=result.project_dir, check=False)
+    mypy_result: CompletedProcess = subprocess.run(['mypy', '.', '--non-interactive'],
+                                                   cwd=result.project_dir, check=False)
     return mypy_result.returncode == 0
 
 

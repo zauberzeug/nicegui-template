@@ -3,3 +3,4 @@ pytest-copie
 ruff
 pylint
 mypy
+nicegui
