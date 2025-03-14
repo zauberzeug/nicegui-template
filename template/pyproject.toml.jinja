@@ -12,3 +12,23 @@ readme = "README.md"
 
 [tool.mypy]
 python_version = "{{ python.min(python_versions) }}"
+install_types = true
+check_untyped_defs = true
+no_implicit_optional = true
+
+[tool.ruff]
+line-length = 120
+indent-width = 4
+target-version = "py{{ python.min(python_versions) | replace('.', '') }}"
+
+[tool.ruff.lint]
+select = [
+    "E",  # pycodestyle
+    "F",  # pyflakes
+    "W",  # pycodestyle
+    "B",  # bugbear
+    "I",  # isort
+    "RUF", # ruff
+    "UP", # pyupgrade
+    "PL", # pylint
+]
