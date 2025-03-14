@@ -17,6 +17,11 @@ install_types = true
 check_untyped_defs = true
 no_implicit_optional = true
 
+[tool.pylint]
+exclude = [
+    "C0301", # Line too long
+]
+
 [tool.ruff]
 line-length = 120
 indent-width = 4
