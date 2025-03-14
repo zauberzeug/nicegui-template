@@ -26,3 +26,8 @@ python_versions:
     "3.11": "3.11"
     "3.12": "3.12"
     "3.13": "3.13"
+
+use_precommit:
+  type: bool
+  help: Would you like to add the standard pre-commit hooks to the project?
+  default: false

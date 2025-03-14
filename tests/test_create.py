@@ -4,20 +4,23 @@ from subprocess import CompletedProcess
 
 from pytest_copie.plugin import Copie, Result
 
+PROJECT_NAME = 'helloworld'
 answers = {
-    'project_name': 'helloworld',
+    'project_name': PROJECT_NAME,
     'project_description': '',
     'module_name': 'hello',
     'python_versions': ['3.9', '3.10', '3.11']
 }
 
 
-def contains_standard_files(result: Result):
+def contains_standard_files(result: Result, project_name: str):
     files = [
         '.copier-answers.yml',
         '.gitignore',
+        'main.py',
         'README.md',
         'pyproject.toml',
+        project_name + '.code-workspace',
     ]
     all_found = True
     for file in files:
@@ -33,7 +36,17 @@ def test_basic_template(copie: Copie):
     assert result.exception is None
     assert result.project_dir is not None
     assert result.project_dir.is_dir()
-    assert contains_standard_files(result)
+    assert contains_standard_files(result, PROJECT_NAME)
+
+
+def test_template_with_precommit(copie: Copie):
+    result = copie.copy(extra_answers={**answers, 'use_precommit': True})
+    assert result.exit_code == 0
+    assert result.exception is None
+    assert result.project_dir is not None
+    assert result.project_dir.is_dir()
+    assert contains_standard_files(result, PROJECT_NAME)
+    assert (result.project_dir / '.pre-commit-config.yaml').is_file()
 
 
 def perform_ruff_run(result: Result):
