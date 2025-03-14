@@ -9,10 +9,6 @@ project_description:
   type: str
   help: Shortly describe your project.
 
-module_name:
-  type: str
-  help: What is your Python module name?
-
 use_poetry:
   type: bool
   help: Would you like to use Poetry for dependency management?
