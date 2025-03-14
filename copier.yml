@@ -1,5 +1,6 @@
-# questions
+_subdirectory: template
 
+# questions
 project_name:
   type: str
   help: What is your project's name?
