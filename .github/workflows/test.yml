@@ -1,0 +1,36 @@
+name: Run Tests
+
+on: [push]
+
+jobs:
+  code-checks:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+      - name: install dependencies
+        run: pip install -r requirements.txt
+      - name: mypy, ruff, pylint
+        run: |
+          mypy . --non-interactive
+          pylint .
+          ruff check .
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: setup up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+      - name: install dependencies
+        run: pip install -r requirements.txt
+      - name: pytest
+        run: pytest
