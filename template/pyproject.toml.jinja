@@ -40,3 +40,11 @@ select = [
     "UP", # pyupgrade
     "PL", # pylint
 ]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+# NOTE: changing default location of pytest_cache because the uvicorn file watcher somehow triggered too many reloads
+cache_dir = "../.pytest_cache"
+testpaths = [
+    "tests"
+]
