@@ -4,6 +4,9 @@ on: [push]
 
 jobs:
   code-checks:
+    strategy:
+      matrix:
+        code-checker: [mypy --non-interactive, ruff check, pylint]
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
@@ -15,11 +18,9 @@ jobs:
           cache: "pip"
       - name: install dependencies
         run: pip install -r requirements.txt
-      - name: mypy, ruff, pylint
-        run: |
-          mypy . --non-interactive
-          pylint .
-          ruff check .
+      - name: ${{ matrix.code-checker }}
+        run: ${{ matrix.code-checker }} .
+
   test:
     runs-on: ubuntu-latest
     timeout-minutes: 10
