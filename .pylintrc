@@ -10,3 +10,6 @@ max-line-length=120
 
 # String used as indentation unit (2 spaces, 4 spaces, or tab)
 indent-string='    '
+
+# exclude virtualenv
+ignore-paths=.venv/
