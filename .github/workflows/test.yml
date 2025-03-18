@@ -6,13 +6,10 @@ jobs:
   code-checks:
     strategy:
       matrix:
-        code-checker:
-          - tool: mypy
-            command: mypy . --non-interactive
-          - tool: ruff
-            command: ruff check .
-          - tool: pylint
-            command: pylint .
+        tools:
+          - command: ["mypy", ".", "--non-interactive"]
+          - command: ["ruff", "check", "."]
+          - command: ["pylint", "."]
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
@@ -24,8 +21,8 @@ jobs:
           cache: "pip"
       - name: install dependencies
         run: pip install -r requirements.txt
-      - name: ${{ matrix.code-checker.tool }}
-        run: ${{ matrix.code-checker.command }}
+      - name: ${{ matrix.tools.command[0] }}
+        run: ${{ join(matrix.tools.command, ' ') }}
 
   test:
     runs-on: ubuntu-latest
