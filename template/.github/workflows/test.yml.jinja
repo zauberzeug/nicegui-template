@@ -5,6 +5,12 @@ on: [push]
 
 jobs:
   code-checks:
+    strategy:
+      matrix:
+        tools:
+          - command: "mypy ./{{ project_name }} --non-interactive" 
+          - command: "pylint ./{{ project_name }}"
+          - command: "ruff check ./{{ project_name }}"
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
@@ -16,11 +22,8 @@ jobs:
           cache: "pip"
       - name: install dependencies
         run: pip install -r requirements-dev.txt
-      - name: mypy, ruff, pylint
-        run: |
-          mypy ./{{ project_name }} --non-interactive
-          pylint ./{{ project_name }}
-          ruff check ./{{ project_name }}
+      - name: {% raw %}${{ matrix.tools.command }}{% endraw %}
+        run: {% raw %}${{ matrix.tools.command }}{% endraw %}
   test:
     strategy:
       matrix:
