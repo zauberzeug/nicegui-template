@@ -1,16 +1,32 @@
 {%- import 'py-versions.jinja' as python %}
 [build-system]
-requires = ["hatchling"]
-build-backend = "hatchling.build"
+requires = ["{% if use_poetry %}poetry-core{% else %}hatchling{% endif %}"]
+build-backend = "{% if use_poetry %}poetry.core.masonry.api{% else %}hatchling.build{% endif %}"
 
 [project]
 name = "{{ project_name }}"
 version = "0.1.0-dev"
 description = "{{ project_description }}"
 authors = [{ name="Zauberzeug GmbH", email="info@zauberzeug.com" }]
-requires-python = "{{ python.range(python_versions) }}"
 readme = "README.md"
+{% if not use_poetry %}requires-python = "{{ python.range(python_versions) }}"{% endif %}
+{% if use_poetry %}
 
+[tool.poetry.dependencies]
+python = "{{ python.range(python_versions) }}"
+nicegui = "^2.12.1"
+
+[tool.poetry.group.dev]
+optional = true
+
+[tool.poetry.group.dev.dependencies]
+mypy = "^1.14.1"
+pylint = "^3.3.3"
+ruff = "^0.11.0"
+pytest = "^8.3.4"
+pytest-asyncio = "^0.25.3"
+
+{% endif %}
 [tool.mypy]
 python_version = "{{ python.min(python_versions) }}"
 install_types = true
@@ -39,6 +55,13 @@ select = [
     "RUF", # ruff
     "UP", # pyupgrade
     "PL", # pylint
+]
+fixable = [
+    "I", # isort
+    "RUF022", # `__all__` is not sorted
+]
+ignore = [
+    "E501", # line too long
 ]
 
 [tool.pytest.ini_options]

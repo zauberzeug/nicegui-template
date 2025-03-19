@@ -9,10 +9,10 @@ project_description:
   type: str
   help: Shortly describe your project.
 
-# use_poetry:
-#   type: bool
-#   help: Would you like to use Poetry for dependency management?
-#   default: false
+use_poetry:
+  type: bool
+  help: Would you like to use Poetry for dependency management?
+  default: false
 
 # use_docker:
 #   type: bool

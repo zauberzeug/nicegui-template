@@ -9,8 +9,17 @@
 {{ py_versions[n-1] }}
 {%- endmacro -%}
 
+{# Return the python version that is just outside the range #}
+{% macro outside(py_versions) -%}
+{%- set max_version = max(py_versions) -%}
+{%- set version_parts = max_version.split('.') -%}
+{%- set major = version_parts[0] | int -%}
+{%- set minor = version_parts[1] | int -%}
+{%- if minor < 13 %}{{ major }}.{{ minor + 1 }}{%- endif %}
+{%- endmacro -%}
+
 {# Return min and max python version #}
 {% macro range(py_versions) -%}
 {%- if py_versions | length == 1 %}=={{ py_versions[0] }}{%- endif %}
-{%- if py_versions | length > 1 %}>={{ min(py_versions) }}, <={{ max(py_versions) }}{%- endif -%}
+{%- if py_versions | length > 1 %}>={{ min(py_versions) }}, <{{ outside(py_versions) }}{%- endif -%}
 {%- endmacro -%}

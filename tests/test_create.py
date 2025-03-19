@@ -76,3 +76,13 @@ def test_standard_pylint_check_runs(standard_result: Result):
 
 def test_standard_pytest_check_runs(standard_result: Result):
     assert perform_pytest_run(standard_result)
+
+
+def test_poetry_lock(copie: Copie, answers: dict[str, str | list[str]]):
+    result = copie.copy(extra_answers={**answers, 'use_poetry': True})
+    assert result.exit_code == 0
+    assert result.exception is None
+    assert result.project_dir is not None
+    assert result.project_dir.is_dir()
+    poetry_lock = subprocess.run(['poetry', 'lock'], cwd=result.project_dir, check=False)
+    assert poetry_lock.returncode == 0
