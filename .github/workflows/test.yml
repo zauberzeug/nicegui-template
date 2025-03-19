@@ -35,6 +35,8 @@ jobs:
           python-version: "3.11"
           cache: "pip"
       - name: install dependencies
-        run: pip install -r requirements.txt
+        run: |
+          pipx install poetry
+          pip install -r requirements.txt
       - name: pytest
         run: pytest
