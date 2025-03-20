@@ -11,7 +11,6 @@ authors = [{ name="Zauberzeug GmbH", email="info@zauberzeug.com" }]
 readme = "README.md"
 {% if not use_poetry %}requires-python = "{{ python.range(python_versions) }}"{% endif %}
 {% if use_poetry %}
-
 [tool.poetry.dependencies]
 python = "{{ python.range(python_versions) }}"
 nicegui = "^2.12.1"
@@ -25,7 +24,7 @@ pylint = "^3.3.3"
 ruff = "^0.11.0"
 pytest = "^8.3.4"
 pytest-asyncio = "^0.25.3"
-
+{% if use_precommit %}pre-commit = "^4.2.0"{% endif %}
 {% endif %}
 [tool.mypy]
 python_version = "{{ python.min(python_versions) }}"
