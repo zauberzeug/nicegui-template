@@ -9,23 +9,28 @@ version = "0.1.0-dev"
 description = "{{ project_description }}"
 authors = [{ name="Zauberzeug GmbH", email="info@zauberzeug.com" }]
 readme = "README.md"
-{% if not use_poetry %}requires-python = "{{ python.range(python_versions) }}"{% endif %}
-{% if use_poetry %}
-[tool.poetry.dependencies]
-python = "{{ python.range(python_versions) }}"
-nicegui = "^2.12.1"
+requires-python = "{{ python.range(python_versions) }}"
+{%- if use_poetry %}
+dependencies = [
+    "nicegui >= 2.15.0"
+]
 
-[tool.poetry.group.dev]
-optional = true
+[project.optional-dependencies]
+dev = [
+    "mypy (>=1.14.1, <2.0.0)",
+    "pylint (>=3.3.3, <4.0.0)",
+    {%- if use_precommit %}"pre-commit (>=4.2.0, <5.0.0)",{% endif -%}
+    "ruff (>=0.11.0, <1.0.0)"
+]
+test = [
+    "pytest (>=8.3.4, <9.0.0)",
+    "pytest-asyncio (>=0.25.3, <0.26.0)",
+]
 
-[tool.poetry.group.dev.dependencies]
-mypy = "^1.14.1"
-pylint = "^3.3.3"
-ruff = "^0.11.0"
-pytest = "^8.3.4"
-pytest-asyncio = "^0.25.3"
-{% if use_precommit %}pre-commit = "^4.2.0"{% endif %}
-{% endif %}
+[tool.poetry]
+package-mode = false
+{% endif -%}
+
 [tool.mypy]
 python_version = "{{ python.min(python_versions) }}"
 install_types = true

@@ -26,7 +26,7 @@ jobs:
           python-version: "{{ python.min(python_versions) }}"
           cache: "{% if use_poetry %}poetry{% else %}pip{% endif %}"
       - name: install dependencies
-        run: {% if use_poetry %}poetry install --with dev --no-root{% else %}pip install -r requirements-dev.txt{% endif %}
+        run: {% if use_poetry %}poetry install --extras dev --no-root{% else %}pip install -r requirements-dev.txt{% endif %}
       - name: {% raw %}${{ matrix.tools.command[0] }}{% endraw %}
         run: {% if use_poetry %}poetry run {% endif %}{% raw %}${{ join(matrix.tools.command, ' ') }}{% endraw %}
   test:
@@ -48,6 +48,6 @@ jobs:
           python-version: {% raw %}${{ matrix.python }}{% endraw %}
           cache: "{% if use_poetry %}poetry{% else %}pip{% endif %}"
       - name: install dependencies
-        run: {% if use_poetry %}poetry install --with dev --no-root{% else %}pip install -r requirements-dev.txt{% endif %}
+        run: {% if use_poetry %}poetry install --extras test --no-root{% else %}pip install -r requirements-dev.txt{% endif %}
       - name: pytest
         run: {% if use_poetry %}poetry run {% endif %}pytest

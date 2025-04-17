@@ -14,7 +14,7 @@ source .venv/bin/activate # to activate your virtual environment
 
 2. install dependencies:
 ```bash
-{% if use_poetry %}poetry install --with dev --no-root{% else %}pip install -r requirements-dev.txt{% endif %}
+{% if use_poetry %}poetry install --all-extras --no-root{% else %}pip install -r requirements-dev.txt{% endif %}
 ```
 
 3. start your project:
