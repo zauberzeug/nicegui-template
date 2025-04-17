@@ -16,10 +16,10 @@ jobs:
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@v4
-      {% if use_poetry %}
+      {%- if use_poetry %}
       - name: set up Poetry
         uses: abatilo/actions-poetry@v4
-      {% endif%}
+      {% endif -%}
       - name: set up Python
         uses: actions/setup-python@v5
         with:
@@ -38,10 +38,10 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
-      {% if use_poetry %}
+      {%- if use_poetry %}
       - name: set up Poetry
         uses: abatilo/actions-poetry@v4
-      {% endif%}
+      {% endif -%}
       - name: setup up Python
         uses: actions/setup-python@v5
         with:
