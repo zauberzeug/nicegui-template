@@ -8,22 +8,27 @@ jobs:
     strategy:
       matrix:
         tools:
-          - command: "mypy ./{{ project_name }} --non-interactive" 
-          - command: "pylint ./{{ project_name }}"
-          - command: "ruff check ./{{ project_name }}"
+          - command: ["mypy", "./{{ project_name }}", "--non-interactive"] 
+          - command: ["pylint", "./{{ project_name }}"]
+          - command: ["ruff", "check", "./{{ project_name }}"]
+    name: {% raw %}code check - ${{ matrix.tools.command[0] }}{% endraw %}
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@v4
+      {% if use_poetry %}
+      - name: set up Poetry
+        uses: abatilo/actions-poetry@v4
+      {% endif%}
       - name: set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "{{ python.min(python_versions) }}"
-          cache: "pip"
+          cache: "{% if use_poetry %}poetry{% else %}pip{% endif %}"
       - name: install dependencies
-        run: pip install -r requirements-dev.txt
-      - name: {% raw %}${{ matrix.tools.command }}{% endraw %}
-        run: {% raw %}${{ matrix.tools.command }}{% endraw %}
+        run: {% if use_poetry %}poetry install --with dev --no-root{% else %}pip install -r requirements-dev.txt{% endif %}
+      - name: {% raw %}${{ matrix.tools.command[0] }}{% endraw %}
+        run: {% if use_poetry %}poetry run {% endif %}{% raw %}${{ join(matrix.tools.command, ' ') }}{% endraw %}
   test:
     strategy:
       matrix:
@@ -33,12 +38,16 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
+      {% if use_poetry %}
+      - name: set up Poetry
+        uses: abatilo/actions-poetry@v4
+      {% endif%}
       - name: setup up Python
         uses: actions/setup-python@v5
         with:
           python-version: {% raw %}${{ matrix.python }}{% endraw %}
-          cache: "pip"
+          cache: "{% if use_poetry %}poetry{% else %}pip{% endif %}"
       - name: install dependencies
-        run: pip install -r requirements-dev.txt
+        run: {% if use_poetry %}poetry install --with dev --no-root{% else %}pip install -r requirements-dev.txt{% endif %}
       - name: pytest
-        run: pytest
+        run: {% if use_poetry %}poetry run {% endif %}pytest

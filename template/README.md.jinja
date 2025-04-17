@@ -19,7 +19,7 @@ source .venv/bin/activate # to activate your virtual environment
 
 3. start your project:
 ```bash
-./main.py
+{% if use_poetry %}poetry run {% endif %}./main.py
 ```
 
 {% if use_precommit %}
