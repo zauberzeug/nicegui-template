@@ -6,6 +6,7 @@ on: [push]
 jobs:
   code-checks:
     strategy:
+      fail-fast: false
       matrix:
         tools:
           - command: ["mypy", "./{{ project_name }}", "--non-interactive"] 
