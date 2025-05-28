@@ -11,7 +11,7 @@ jobs:
         tools:
           - command: ["mypy", "./{{ project_name }}", "--non-interactive"] 
           - command: ["pylint", "./{{ project_name }}"]
-          - command: ["ruff", "check", "./{{ project_name }}"]
+          - command: [{% if use_precommit %}"pre-commit", "run", "--all-files"{% else %}"ruff", "check", "./{{ project_name }}"{% endif %}]
     name: {% raw %}code check - ${{ matrix.tools.command[0] }}{% endraw %}
     runs-on: ubuntu-latest
     timeout-minutes: 5
