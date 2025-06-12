@@ -38,3 +38,14 @@ pip install -r requirements-dev.txt # without poetry
 ```bash
 ./main.py
 ```
+
+## Available Questions / Options
+
+| name                | type    | options      | default                 | explanation                                                                                           |
+| ------------------- | ------- | ------------ | ----------------------- | ----------------------------------------------------------------------------------------------------- |
+| project name        | str     |              | -                       | the project's name as stated in the pyproject.toml                                                    |
+| module name         | str     |              | same as project name    | the name of the main module in the root directory of the project                                      |
+| project description | str     |              | -                       | used in the pyproject.toml                                                                            |
+| use poetry          | boolean | true / false | false                   | use [Poetry](https://python-poetry.org/) to manage the project's dependencies and virtual environment |
+| python versions     | str     | 3.8 to 3.13  | [3.9, 3.10, 3.11, 3.12] | defines the required and supported python versions                                                    |
+| use precommit       | boolean | true / false | false                   | use [pre-commit](https://pre-commit.com/) to check your changes before committing                     |
