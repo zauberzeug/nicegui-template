@@ -35,7 +35,8 @@ def perform_mypy_run(result: Result):
 
 
 def perform_pylint_run(result: Result):
-    pylint_result: CompletedProcess = subprocess.run(['pylint', '.'], cwd=result.project_dir, check=False)
+    pylint_result: CompletedProcess = subprocess.run(['pylint', f'./{result.answers["module_name"]}'],
+                                                     cwd=result.project_dir, check=False)
     return pylint_result.returncode == 0
 
 
