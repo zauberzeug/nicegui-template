@@ -1,4 +1,4 @@
-# Contributing to NiceGUI
+# Contributing to the NiceGUI template
 
 We're thrilled that you're interested in contributing to the NiceGUI template!
 Here are some guidelines that will help you get started.
@@ -127,5 +127,5 @@ We're thrilled to see your creations and look forward to watching your videos. H
 
 ## Thank you!
 
-Thank you for your interest in contributing to NiceGUI!
+Thank you for your interest in contributing to the NiceGUI template!
 We're looking forward to working with you!
