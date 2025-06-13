@@ -5,7 +5,7 @@
 `pipx` is used to install `copier` independent of your new project's dependencies:
 
 1. install `pipx` according to the documentation [here](https://pipx.pypa.io/stable/).
-2. install [`copier`](https://copier.readthedocs.io/en/stable/) with pipx: `pipx install copier`.
+2. install [`copier`](https://copier.readthedocs.io/en/stable/) with pipx: `pipx install copier` (tested with `copier==9.7.1`).
 
 
 ## Quickstart
