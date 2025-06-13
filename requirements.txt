@@ -1,6 +1,7 @@
-pytest
-pytest-copie
-ruff
-pylint
+copier==9.7.1 # used by pytest-copie
 mypy
 nicegui
+pylint
+pytest
+pytest-copie==0.2.2
+ruff
