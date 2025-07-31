@@ -15,3 +15,23 @@ def fixture_answers() -> dict[str, str | list[str]]:
 @pytest.fixture
 def standard_result(copie: Copie, answers: dict[str, str | list[str]]) -> Result:
     return copie.copy(extra_answers=answers)
+
+
+@pytest.fixture
+def use_poetry_result(copie: Copie, answers: dict[str, str | list[str]]) -> Result:
+    return copie.copy(extra_answers={**answers, 'use_poetry': True})
+
+
+@pytest.fixture
+def use_rosys_result(copie: Copie, answers: dict[str, str | list[str]]) -> Result:
+    return copie.copy(extra_answers={**answers, 'use_rosys': True})
+
+
+@pytest.fixture
+def use_precommit_result(copie: Copie, answers: dict[str, str | list[str]]) -> Result:
+    return copie.copy(extra_answers={**answers, 'use_precommit': True})
+
+
+@pytest.fixture
+def use_all_features_result(copie: Copie, answers: dict[str, str | list[str]]) -> Result:
+    return copie.copy(extra_answers={**answers, 'use_rosys': True, 'use_precommit': True})
