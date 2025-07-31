@@ -1,0 +1,13 @@
+import logging
+
+
+class System:
+    """
+    The System is the core class of a RoSys project to initialize all components of a robot or system.
+    """
+
+    def __init__(self) -> None:
+        self._log = logging.getLogger('{{ project_name }}.system')
+
+        # add your components here like:
+        # self.wheels: Wheels = WheelsHardware()

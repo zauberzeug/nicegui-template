@@ -4,4 +4,5 @@ nicegui
 pylint
 pytest
 pytest-copie==0.2.2
+rosys
 ruff
