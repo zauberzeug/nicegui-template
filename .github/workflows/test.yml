@@ -8,7 +8,7 @@ jobs:
       fail-fast: false
       matrix:
         tools:
-          - command: ["mypy", ".", "--non-interactive"]
+          - command: ["mypy", "."]
           - command: ["ruff", "check", "."]
           - command: ["pylint", "."]
     runs-on: ubuntu-latest
@@ -22,7 +22,7 @@ jobs:
           python-version: "3.11"
           cache: "pip"
       - name: install dependencies
-        run: pip install -r requirements.txt
+        run: pip install -r requirements-locked.txt
       - name: ${{ matrix.tools.command[0] }}
         run: ${{ join(matrix.tools.command, ' ') }}
 
@@ -39,6 +39,6 @@ jobs:
       - name: install dependencies
         run: |
           pipx install poetry
-          pip install -r requirements.txt
+          pip install -r requirements-locked.txt
       - name: pytest
         run: pytest
