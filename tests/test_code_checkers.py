@@ -7,7 +7,7 @@ from pytest_copie.plugin import Result
 from helpers import ResultCombinations
 
 
-def perform_run(result: Result, arguments: list[str]):
+def perform_run(result: Result, arguments: list[str]) -> None:
     run_result: CompletedProcess = subprocess.run(arguments, cwd=result.project_dir, check=False)
     assert run_result.returncode == 0
 
