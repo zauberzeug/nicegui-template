@@ -51,7 +51,7 @@ def use_rosys_and_precommit_result(copie: Copie, answers: dict[str, str | list[s
 
 @pytest.fixture
 def use_all_features_result(copie: Copie, answers: dict[str, str | list[str]]) -> Result:
-    return copie.copy(extra_answers={**answers, 'use_rosys': True, 'use_precommit': True})
+    return copie.copy(extra_answers={**answers, 'use_poetry': True, 'use_rosys': True, 'use_precommit': True})
 
 
 @pytest.fixture
