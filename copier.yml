@@ -44,5 +44,5 @@ use_precommit:
 
 use_rosys:
   type: bool
-  help: Would you like to add Rosys to the dependencies of your project and add basic structure?
+  help: Would you like to add RoSys to the dependencies of your project and add basic structure?
   default: false
