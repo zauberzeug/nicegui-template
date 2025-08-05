@@ -2,7 +2,8 @@
 # Disable specific warnings
 disable=C0111,  # missing-docstring
         C0103,  # invalid-name
-        R0913   # too-many-arguments
+        R0913,  # too-many-arguments
+        R0917   # too-many-positional-arguments
 
 [FORMAT]
 # Maximum number of characters on a single line

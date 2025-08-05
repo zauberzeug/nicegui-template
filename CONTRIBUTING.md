@@ -33,7 +33,7 @@ virtualenv .venv
 source .venv/bin/activate
 ```
 
-Then install the requirements with `pip install -r requirements.txt` and you're good to go!
+Then install the requirements with `pip install -r requirements-locked.txt` and you're good to go!
 
 ## Coding Style Guide
 

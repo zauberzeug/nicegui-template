@@ -41,3 +41,8 @@ use_precommit:
   type: bool
   help: Would you like to add the standard pre-commit hooks to the project?
   default: false
+
+use_rosys:
+  type: bool
+  help: Would you like to add RoSys to the dependencies of your project and add basic structure?
+  default: false

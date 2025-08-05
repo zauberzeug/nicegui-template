@@ -13,3 +13,6 @@ select = [
     "UP", # pyupgrade
     "PL", # pylint
 ]
+ignore = [
+    "PLR0913", # pylint: Too many arguments
+]

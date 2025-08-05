@@ -12,7 +12,8 @@ readme = "README.md"
 requires-python = "{{ python.range(python_versions) }}"
 {%- if use_poetry %}
 dependencies = [
-    "nicegui >= 2.15.0"
+    "nicegui >= 2.15.0",
+    {%- if use_rosys %}"rosys >= 0.27.0",{% endif -%}
 ]
 
 [project.optional-dependencies]
@@ -32,7 +33,6 @@ package-mode = false
 {% endif %}
 [tool.mypy]
 python_version = "{{ python.min(python_versions) }}"
-install_types = true
 check_untyped_defs = true
 no_implicit_optional = true
 
@@ -41,6 +41,7 @@ disable = [
     "C0301", # Line too long
     "C0114", # Missing module docstring
     "C0116", # Missing function or method docstring
+    "R0903", # Too few public methods
 ]
 
 [tool.ruff]
