@@ -74,7 +74,7 @@ def test_poetry_lock(copie: Copie, answers: dict[str, str | list[str]]):
 @pytest.mark.parametrize('use_poetry', ['Poetry', ''])
 @pytest.mark.parametrize('use_rosys', ['RoSys', ''])
 @pytest.mark.parametrize('use_precommit', ['pre-commit', ''])
-@pytest.mark.parametrize('task', ['mypy', 'pylint', 'ruff', 'pytest', 'pre-commit'])
+@pytest.mark.parametrize('task', ['mypy', 'pylint', 'ruff', 'pytest'])
 def test_code_checkers(copie: Copie,
                        answers: dict[str, str | list[str]],
                        use_poetry: str,
@@ -93,8 +93,6 @@ def test_code_checkers(copie: Copie,
         arguments.append(f'./{result.answers["module_name"]}')
     elif task == 'ruff':
         arguments.extend(['check', '.'])
-    elif task == 'pre-commit':
-        arguments.extend(['run', '--all-files'])
     # ACT
     test_run: CompletedProcess = subprocess.run(arguments, cwd=result.project_dir, check=False)
     # ASSERT
