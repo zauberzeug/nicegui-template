@@ -1,4 +1,4 @@
-{%- import 'py-versions.jinja' as python %}
+{%- import 'py-versions.jinja' as python -%}
 name: Run Tests
 
 on: [push]
@@ -9,7 +9,7 @@ jobs:
       fail-fast: false
       matrix:
         tools:
-          - command: ["mypy", "./{{ project_name }}", "--non-interactive"] 
+          - command: ["mypy", "./{{ project_name }}", "--non-interactive"]
           - command: ["pylint", "./{{ project_name }}"]
           - command: [{% if use_precommit %}"pre-commit", "run", "--all-files"{% else %}"ruff", "check", "./{{ project_name }}"{% endif %}]
     name: {% raw %}code check - ${{ matrix.tools.command[0] }}{% endraw %}
@@ -20,14 +20,14 @@ jobs:
       {%- if use_poetry %}
       - name: set up Poetry
         uses: abatilo/actions-poetry@v4
-      {% endif -%}
+      {% endif %}
       - name: set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "{{ python.min(python_versions) }}"
           cache: "{% if use_poetry %}poetry{% else %}pip{% endif %}"
       - name: install dependencies
-        run: {% if use_poetry %}poetry install --extras dev --no-root{% else %}pip install -r requirements-dev.txt{% endif %}
+        run: {% if use_poetry %}poetry install --with dev --no-root{% else %}pip install -r requirements-dev.txt{% endif %}
       - name: {% raw %}${{ matrix.tools.command[0] }}{% endraw %}
         run: {% if use_poetry %}poetry run {% endif %}{% raw %}${{ join(matrix.tools.command, ' ') }}{% endraw %}
   test:
@@ -42,13 +42,13 @@ jobs:
       {%- if use_poetry %}
       - name: set up Poetry
         uses: abatilo/actions-poetry@v4
-      {% endif -%}
+      {% endif %}
       - name: setup up Python
         uses: actions/setup-python@v5
         with:
           python-version: {% raw %}${{ matrix.python }}{% endraw %}
           cache: "{% if use_poetry %}poetry{% else %}pip{% endif %}"
       - name: install dependencies
-        run: {% if use_poetry %}poetry install --extras test --no-root{% else %}pip install -r requirements-dev.txt{% endif %}
+        run: {% if use_poetry %}poetry install --with test --no-root{% else %}pip install -r requirements-dev.txt{% endif %}
       - name: pytest
         run: {% if use_poetry %}poetry run {% endif %}pytest
