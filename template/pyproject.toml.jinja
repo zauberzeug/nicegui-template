@@ -1,4 +1,4 @@
-{%- import 'py-versions.jinja' as python %}
+{%- import 'py-versions.jinja' as python -%}
 [build-system]
 requires = ["{% if use_poetry %}poetry-core{% else %}hatchling{% endif %}"]
 build-backend = "{% if use_poetry %}poetry.core.masonry.api{% else %}hatchling.build{% endif %}"
@@ -13,14 +13,18 @@ requires-python = "{{ python.range(python_versions) }}"
 {%- if use_poetry %}
 dependencies = [
     "nicegui >= 2.15.0",
-    {%- if use_rosys %}"rosys >= 0.27.0",{% endif -%}
+    {%- if use_rosys %}
+    "rosys >= 0.27.0",
+    {%- endif %}
 ]
 
 [project.optional-dependencies]
 dev = [
     "mypy (>=1.14.1, <2.0.0)",
     "pylint (>=3.3.3, <4.0.0)",
-    {%- if use_precommit %}"pre-commit (>=4.2.0, <5.0.0)",{% endif -%}
+    {%- if use_precommit %}
+    "pre-commit (>=4.2.0, <5.0.0)",
+    {%- endif %}
     "ruff (>=0.11.0, <1.0.0)"
 ]
 test = [
@@ -30,7 +34,8 @@ test = [
 
 [tool.poetry]
 package-mode = false
-{% endif %}
+{%- endif %}
+
 [tool.mypy]
 python_version = "{{ python.min(python_versions) }}"
 check_untyped_defs = true
