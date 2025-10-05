@@ -2,6 +2,18 @@
 
 {{ project_description }}
 
+## Tech Stack
+
+- Python {{ python_versions[0] }}+
+{% if use_poetry -%}
+- Poetry for dependency management
+{% else -%}
+- pip for dependency management
+{% endif -%}
+{% if use_rosys -%}
+- RoSys framework
+{% endif -%}
+
 ## Development
 
 1. create a virtual environment and activate it:

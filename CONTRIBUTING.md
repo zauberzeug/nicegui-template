@@ -82,7 +82,6 @@ on a second line and leave the other arguments as they are.
 - When adding new features, include corresponding tests
 - For documentation, ensure each sentence is on a new line
 
-
 ## Running tests
 
 Our tests are built with pytest and require python-copie.
@@ -100,7 +99,6 @@ Please add new copier questions to the table in the README.md and explain the av
 
 Your contributions are much appreciated.
 
-
 ## Pull requests
 
 To get started, fork the repository on GitHub, clone it somewhere on your filesystem, commit and push your changes,
@@ -109,6 +107,31 @@ and then open a pull request (PR) with a detailed description of the changes you
 
 When submitting a PR, please make sure that the code follows the existing coding style and that all tests are passing.
 If you're adding a new feature, please include tests that cover the new functionality.
+
+## AI-Assisted Contributions
+
+We welcome and encourage the use of AI coding assistants (like GitHub Copilot, Cursor, etc.)!
+
+### For Contributors Using AI Tools
+
+When using AI assistants:
+
+- Always review and understand AI-generated code before committing
+- Ensure the code follows our style guidelines and principles
+- Test AI-generated code thoroughly
+- Don't blindly accept suggestions - think critically about the solutions
+
+### For Projects Created with This Template
+
+Projects created with this template can optionally include:
+
+- `AGENT.md` - AI-specific coding guidelines and project context
+- `.github/copilot-instructions.md` - GitHub Copilot-specific instructions
+- `.cursor/rules` - Cursor-specific instructions
+- `.cursor/commands/*.md` - Cursor-specific commands
+- `CONTRIBUTING.md` - General contribution guidelines
+
+These files help AI assistants understand your project better and generate more appropriate code.
 
 ## YouTube
 

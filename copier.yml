@@ -46,3 +46,14 @@ use_rosys:
   type: bool
   help: Would you like to add RoSys to the dependencies of your project and add basic structure?
   default: false
+
+include_contributing:
+  type: bool
+  help: Would you like to include a CONTRIBUTING.md file?
+  default: true
+  when: "{{ not include_ai_instructions }}"
+
+include_ai_instructions:
+  type: bool
+  help: Would you like to include AI agent instructions (AGENT.md, .github/copilot-instructions.md, .cursor, ...)? This will also include CONTRIBUTING.md.
+  default: true

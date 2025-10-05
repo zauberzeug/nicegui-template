@@ -1,0 +1,65 @@
+# AI Agent Guidelines for {{ project_name }}
+
+> **For**: AI assistants (Cursor, GitHub Copilot, etc.) working on {{ project_name }}
+> **About**: The project, setup and usage is described in [README.md](README.md)
+> **Standards**: All coding standards are in [CONTRIBUTING.md](CONTRIBUTING.md) – follow those rules
+> **Review**: For PR reviews, see [.github/copilot-instructions.md](.github/copilot-instructions.md)
+
+## Core Principles
+
+### Think from First Principles
+
+Don't settle for the first solution.
+Question assumptions and think deeply about the true nature of the problem before implementing.
+
+### Discuss Before Implementing
+
+For significant changes:
+- Present the problem and possible approaches
+- Discuss trade-offs and implications
+- Get confirmation before proceeding with large refactorings
+- Work iteratively with feedback at each step
+
+### Simplicity First
+
+- Prefer simple, straightforward solutions
+- Avoid over-engineering
+- Remove obsolete code rather than working around it
+- Code should be self-explanatory
+
+## Code Organization
+
+- **High-level code first**: Put interesting logic at the top of files
+- **Helpers below usage**: Functions called from high-level code should be close to, but below, their usage
+- **Keep files focused**: Aim for under 200-300 lines per file; refactor when larger
+
+## What to Avoid
+
+- **Global mutable state** without clear justification
+- **Blocking I/O** in async code paths
+- **Broad exception catching** without proper error context
+- **Debug prints** - use proper logging or remove before committing
+- **Unnecessary complexity** - don't introduce new patterns without exhausting existing options
+- **Code duplication** - check for similar functionality before implementing
+- **Unrelated changes** - stay focused on the requested task
+
+## Quick Verification
+
+Before claiming a task complete, verify:
+
+1. Tests written and passing?
+2. Code follows style guidelines?
+3. No blocking operations in async code?
+4. Debug code removed?
+5. Linters passing?
+
+## When Uncertain
+
+- **Check online sources** for inspiration or verification rather than guessing
+- **Search the codebase** for similar patterns before inventing new ones
+- **Ask the user** by presenting options and trade-offs if strategy is unclear
+
+---
+
+> This file complements [CONTRIBUTING.md](CONTRIBUTING.md).
+> For detailed workflow, testing, and contribution process, see CONTRIBUTING.md.
