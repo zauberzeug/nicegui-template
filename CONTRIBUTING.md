@@ -11,7 +11,7 @@ If possible, include steps to reproduce the issue.
 
 ## Code of Conduct
 
-We follow a [Code of Conduct](https://github.com/zauberzeug/nicegui-template/blob/main/CODE_OF_CONDUCT.md) to ensure that everyone who participates in the NiceGUI community feels welcome and safe.
+We follow a [Code of Conduct](https://github.com/zauberzeug/nicegui-template/blob/main/CODE_OF_CONDUCT.md) to ensure that everyone who participates in the community feels welcome and safe.
 By participating, you agree to abide by its terms.
 
 ## Contributing code
