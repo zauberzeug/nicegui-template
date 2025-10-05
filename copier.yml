@@ -51,7 +51,7 @@ include_ai_instructions:
   type: bool
   help: Would you like to include AI agent instructions (AGENT.md, .github/copilot-instructions.md, .cursor, ...)? This will also include CONTRIBUTING.md.
   default: true
-  # NOTE: CONTRIBUTING.md is mandatory when AI instructions are enabled because the other instructions will use it as project specific single source of truth.
+  # NOTE: CONTRIBUTING.md is automatically included as it's the single source of truth for AI instructions.
 
 include_contributing:
   type: bool
