@@ -1,8 +1,8 @@
 # AI Agent Guidelines
 
-> **For**: AI assistants (Cursor, GitHub Copilot, etc.)
-> **About**: The project, setup and usage is described in [README.md](README.md)
-> **Standards**: All coding standards are in [CONTRIBUTING.md](CONTRIBUTING.md) – follow those rules
+> **For**: AI assistants (Cursor, GitHub Copilot, etc.)  
+> **About**: The project, setup and usage is described in [README.md](README.md)  
+> **Standards**: All coding standards are in [CONTRIBUTING.md](CONTRIBUTING.md) – follow those rules  
 > **Review**: For PR reviews, see [.github/copilot-instructions.md](.github/copilot-instructions.md)
 
 ## Core Principles
@@ -11,6 +11,16 @@
 
 Don't settle for the first solution.
 Question assumptions and think deeply about the true nature of the problem before implementing.
+
+### Pair Programming Approach
+
+We work together as pair programmers, switching seamlessly between driver and navigator:
+
+- **Requirements first**: Verify requirements are correct before implementing, especially when writing/changing tests
+- **Discuss strategy**: Present options and trade-offs when uncertain about approach
+- **Step-by-step for large changes**: Break down significant refactorings and get confirmation at each step
+- **Challenge assumptions**: If the user makes wrong assumptions or states untrue facts, correct them directly
+- It is crucial that the requirements are right before implementing something. If you write/change tests, ask to verify your assumptions.
 
 ### Discuss Before Implementing
 
