@@ -14,6 +14,7 @@
 {% if use_rosys -%}
 - [RoSys](https://rosys.io) framework
 {% endif -%}
+- [Copier](https://copier.readthedocs.io/) for template configuration (from [nicegui-template](https://github.com/zauberzeug/nicegui-template))
 
 ## Development
 
@@ -34,6 +35,16 @@ source .venv/bin/activate # to activate your virtual environment
 ```bash
 {% if use_poetry %}poetry run {% endif %}./main.py
 ```
+
+### Updating template settings
+
+To update your project configuration from the nicegui-template, run:
+
+```bash
+copier update
+```
+
+This will prompt you to review and update your template settings interactively.
 
 {% if use_precommit %}
 ## pre-commit
