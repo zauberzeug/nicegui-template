@@ -77,9 +77,9 @@ When `include_contributing` is enabled (default when AI instructions are disable
 When `include_ai_instructions` is enabled (default), the template generates files to help AI coding assistants (GitHub Copilot, Cursor, etc.) understand your project better:
 
 - **`CONTRIBUTING.md`** - Development guidelines and coding standards (mandatory, serves as the detailed reference)
-- **`AGENT.md`** - Focused AI agent guidelines with principles and AI-specific patterns
+- **`AGENTS.md`** - Focused AI agent guidelines with principles and AI-specific patterns
 - **`.github/copilot-instructions.md`** - Brief GitHub Copilot instructions that reference the main files plus detailed review instructions (because it's the most common and straight forward AI review tool when using GitHub)
 - **`.cursor/rules`** - Brief Cursor AI quick reference
 - **`.cursor/commands/*.md`** - Custom Cursor commands (review-code, check-style, suggest-tests, explain-code, simplify)
 
-**Structure Philosophy**: Following the [NiceGUI approach](https://github.com/zauberzeug/nicegui/blob/main/AGENT.md), CONTRIBUTING.md contains the comprehensive coding standards and workflow, while AGENT.md focuses on AI-specific principles. Tool-specific files (.cursor/rules, .github/copilot-instructions.md) are kept brief and reference the main files.
+**Structure Philosophy**: Following the [NiceGUI approach](https://github.com/zauberzeug/nicegui/blob/main/AGENT.md), CONTRIBUTING.md contains the comprehensive coding standards and workflow, while AGENTS.md focuses on AI-specific principles. Tool-specific files (.cursor/rules, .github/copilot-instructions.md) are kept brief and reference the main files.

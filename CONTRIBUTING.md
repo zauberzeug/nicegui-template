@@ -215,7 +215,7 @@ We welcome and encourage the use of AI coding assistants (like GitHub Copilot, C
 
 This project includes AI instruction files to help assistants understand our template development workflow:
 
-- **[AGENT.md](AGENT.md)** - AI-specific guidelines for template development
+- **[AGENTS.md](AGENTS.md)** - AI-specific guidelines for template development
 - **[.github/copilot-instructions.md](.github/copilot-instructions.md)** - Review instructions for GitHub Copilot
 - **[.cursor/rules](.cursor/rules)** - Quick reference for Cursor AI
 - **[.cursor/commands/\*.md](.cursor/commands/)** - Custom Cursor commands

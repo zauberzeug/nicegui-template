@@ -69,7 +69,7 @@ def test_template_with_contributing_only(copie: Copie, answers: dict[str, str | 
     assert result.project_dir.is_dir()
     assert contains_standard_files(result, cast(str, answers['project_name']))
     assert (result.project_dir / 'CONTRIBUTING.md').is_file()
-    assert not (result.project_dir / 'AGENT.md').exists()
+    assert not (result.project_dir / 'AGENTS.md').exists()
     assert not (result.project_dir / '.github' / 'copilot-instructions.md').exists()
     assert not (result.project_dir / '.cursor' / 'rules').exists()
     # Verify that CONTRIBUTING.md does NOT contain AI section when AI instructions are disabled
@@ -89,7 +89,7 @@ def test_template_with_ai_instructions(copie: Copie, answers: dict[str, str | li
     assert contains_standard_files(result, cast(str, answers['project_name']))
     # CONTRIBUTING.md is mandatory when AI instructions are enabled
     assert (result.project_dir / 'CONTRIBUTING.md').is_file()
-    assert (result.project_dir / 'AGENT.md').is_file()
+    assert (result.project_dir / 'AGENTS.md').is_file()
     assert (result.project_dir / '.github' / 'copilot-instructions.md').is_file()
     assert (result.project_dir / '.cursor' / 'rules').is_file()
     assert (result.project_dir / '.cursor' / 'commands' / 'review-uncommitted.md').is_file()
@@ -100,7 +100,7 @@ def test_template_with_ai_instructions(copie: Copie, answers: dict[str, str | li
     # Verify that CONTRIBUTING.md contains AI section when AI instructions are enabled
     contributing_content = (result.project_dir / 'CONTRIBUTING.md').read_text()
     assert 'AI-Assisted Contributions' in contributing_content
-    assert 'AGENT.md' in contributing_content
+    assert 'AGENTS.md' in contributing_content
 
 
 def test_template_without_contributing_and_ai(copie: Copie, answers: dict[str, str | list[str]]):
@@ -113,7 +113,7 @@ def test_template_without_contributing_and_ai(copie: Copie, answers: dict[str, s
     assert result.project_dir.is_dir()
     assert contains_standard_files(result, cast(str, answers['project_name']))
     assert not (result.project_dir / 'CONTRIBUTING.md').exists()
-    assert not (result.project_dir / 'AGENT.md').exists()
+    assert not (result.project_dir / 'AGENTS.md').exists()
     assert not (result.project_dir / '.github' / 'copilot-instructions.md').exists()
     assert not (result.project_dir / '.cursor' / 'rules').exists()
     assert not (result.project_dir / '.cursor' / 'commands').exists()

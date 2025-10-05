@@ -49,7 +49,7 @@ use_rosys:
 
 include_ai_instructions:
   type: bool
-  help: Would you like to include AI agent instructions (AGENT.md, .github/copilot-instructions.md, .cursor, ...)? This will also include CONTRIBUTING.md.
+  help: Would you like to include AI agent instructions (AGENTS.md, .github/copilot-instructions.md, .cursor, ...)? This will also include CONTRIBUTING.md.
   default: true
   # NOTE: CONTRIBUTING.md is automatically included as it's the single source of truth for AI instructions.
 
