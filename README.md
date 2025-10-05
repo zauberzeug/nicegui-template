@@ -78,7 +78,7 @@ When `include_ai_instructions` is enabled (default), the template generates file
 
 - **`CONTRIBUTING.md`** - Development guidelines and coding standards (mandatory, serves as the detailed reference)
 - **`AGENT.md`** - Focused AI agent guidelines with principles and AI-specific patterns
-- **`.github/copilot-instructions.md`** - Brief GitHub Copilot instructions that reference the main files
+- **`.github/copilot-instructions.md`** - Brief GitHub Copilot instructions that reference the main files plus detailed review instructions (because it's the most common and straight forward AI review tool when using GitHub)
 - **`.cursor/rules`** - Brief Cursor AI quick reference
 - **`.cursor/commands/*.md`** - Custom Cursor commands (review-code, check-style, suggest-tests, explain-code, simplify)
 

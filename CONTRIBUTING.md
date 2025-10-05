@@ -114,24 +114,43 @@ We welcome and encourage the use of AI coding assistants (like GitHub Copilot, C
 
 ### For Contributors Using AI Tools
 
+This project includes AI instruction files to help assistants understand our template development workflow:
+
+- **[AGENT.md](AGENT.md)** - AI-specific guidelines for template development
+- **[.github/copilot-instructions.md](.github/copilot-instructions.md)** - Review instructions for GitHub Copilot
+- **[.cursor/rules](.cursor/rules)** - Quick reference for Cursor AI
+- **[.cursor/commands/\*.md](.cursor/commands/)** - Custom Cursor commands
+
 When using AI assistants:
 
+- Review [AGENT.md](AGENT.md) for template-specific guidelines
 - Always review and understand AI-generated code before committing
 - Ensure the code follows our style guidelines and principles
-- Test AI-generated code thoroughly
+- Test template generation with various option combinations
 - Don't blindly accept suggestions - think critically about the solutions
+
+**Before submitting a PR**, review your changes with an AI assistant:
+
+In **Cursor** or **VS Code with GitHub Copilot Chat**:
+
+Select Agent Mode with claude-sonnet-4 and write:
+
+```
+Review my current branch according to @.github/copilot-instructions.md
+```
+
+Or in **Cursor**, use these custom commands:
+
+1. Type `/` in Cursor chat
+2. Select commands:
+   - `/review-uncommitted` - Review your local uncommitted changes
+   - `/review-branch` - Review your current branch vs main
+   - `/simplify` - Suggest ways to simplify code or templates
+   - `/explain` - Explain what code or templates do
 
 ### For Projects Created with This Template
 
-Projects created with this template can optionally include:
-
-- `AGENT.md` - AI-specific coding guidelines and project context
-- `.github/copilot-instructions.md` - GitHub Copilot-specific instructions
-- `.cursor/rules` - Cursor-specific instructions
-- `.cursor/commands/*.md` - Cursor-specific commands
-- `CONTRIBUTING.md` - General contribution guidelines
-
-These files help AI assistants understand your project better and generate more appropriate code.
+Projects created with this template can optionally include similar AI instruction files to help contributors and AI assistants understand the generated project better.
 
 ## YouTube
 
