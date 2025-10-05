@@ -36,20 +36,20 @@ source .venv/bin/activate  # On Windows: .venv\Scripts\activate
 3. Install dependencies:
 
 ```bash
-{% if use_poetry -%}
+{%- if use_poetry %}
 poetry install --all-extras
-{% else -%}
+{%- else %}
 pip install -r requirements-dev.txt
-{% endif %}
+{%- endif %}
 ```
+{%- if use_precommit %}
 
-{% if use_precommit -%}
 4. Install pre-commit hooks:
 
 ```bash
 pre-commit install
 ```
-{% endif %}
+{%- endif %}
 
 ## Coding Style
 
@@ -108,11 +108,11 @@ pre-commit install
 Run tests before submitting:
 
 ```bash
-{% if use_poetry -%}
+{%- if use_poetry %}
 poetry run pytest
-{% else -%}
+{%- else %}
 pytest
-{% endif %}
+{%- endif %}
 ```
 
 Write tests for:
@@ -125,22 +125,22 @@ Write tests for:
 Check your code with:
 
 ```bash
-{% if use_poetry -%}
+{%- if use_poetry %}
 poetry run ruff check .
 poetry run mypy .
-{% else -%}
+{%- else %}
 ruff check .
 mypy .
-{% endif %}
+{%- endif %}
 ```
+{%- if use_precommit %}
 
-{% if use_precommit -%}
 Or let pre-commit handle it:
 
 ```bash
 pre-commit run --all-files
 ```
-{% endif %}
+{%- endif %}
 
 ## Pull Requests
 
@@ -159,8 +159,7 @@ pre-commit run --all-files
 - [ ] Documentation updated if needed
 - [ ] No unrelated changes included
 - [ ] Commit messages are clear
-
-{% if include_ai_instructions -%}
+{%- if include_ai_instructions %}
 
 ## AI-Assisted Contributions
 
