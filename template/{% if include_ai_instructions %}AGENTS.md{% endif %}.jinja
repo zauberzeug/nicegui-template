@@ -1,9 +1,8 @@
 # AI Agent Guidelines
 
-> **For**: AI assistants (Cursor, GitHub Copilot, etc.)  
+> **For**: AI assistants (Cursor, GitHub Copilot, Codex, etc.)  
 > **About**: The project, setup and usage is described in [README.md](README.md)  
-> **Standards**: All coding standards are in [CONTRIBUTING.md](CONTRIBUTING.md) – follow those rules  
-> **Review**: For PR reviews, see [.github/copilot-instructions.md](.github/copilot-instructions.md)
+> **Standards**: All coding standards are in [CONTRIBUTING.md](CONTRIBUTING.md) – follow those rules
 
 ## Core Principles
 
@@ -72,5 +71,99 @@ Before claiming a task complete, verify:
 
 ---
 
+## Code Review Guidelines
+
+**Purpose**: Maximize signal/noise, maintain code quality, and offload maintainers.
+Act as a _single, concise reviewer_.
+Prefer one structured top-level comment with suggested diffs over many line-by-line nits.
+
+**Standards Reference**: Before starting a review, internalize all coding standards, style guidelines, and contribution workflows defined in [CONTRIBUTING.md](CONTRIBUTING.md) and the principles above.
+
+### Scope & Tone
+
+- Audience: PR authors and maintainers
+- Voice: concise, technical, actionable. No style opinions when linters/formatters are green
+- Output format: one summary + grouped findings (**BLOCKER**, **MAJOR**, **CLEANUP**) + **suggested diff** blocks where possible
+
+### Severity Mapping
+
+#### BLOCKER (if violated ⇒ request changes)
+
+1. **Security/Secrets**: leaked credentials/keys, unsafe eval/exec, command injection, path traversal, template injection
+2. **Concurrency/Async correctness**: event loop blocking (long CPU/I/O in async handlers), missing awaits, race conditions, using `asyncio.create_task()` instead of `background_tasks.create()`, non-thread-safe mutations
+3. **Breaking changes**: changes that break existing functionality without clear migration path or deprecation notice
+4. **Performance regressions**: O(n²) additions, synchronous I/O in hot paths, unnecessary heavyweight objects
+5. **Tests & CI**: missing or incomplete tests; ignoring configured linters/type checks (see [CONTRIBUTING.md](CONTRIBUTING.md))
+6. **PR description quality**: missing/vague problem statement or motivation
+7. **Formatting & placement**: unformatted files (violates [CONTRIBUTING.md](CONTRIBUTING.md) requirements), surprising file placement without rationale
+
+#### MAJOR (should be fixed before merge)
+
+1. **Error-handling gaps**: exceptions swallowed, broad `except:` clauses, unvalidated user input
+2. **File/feature placement**: unexpected location or architecture drift without justification
+3. **Unnecessary complexity**: simpler design meets requirements (violates "prefer simple solutions" principle)
+4. **Resource hygiene**: unclosed files/sockets/tasks; memory leaks; missing context managers
+5. **Logging/observability**: noisy logs, missing error context; debug prints left in code
+6. **Cross-platform pitfalls**: Windows paths, locale/timezone assumptions, reliance on system binaries without guards
+
+#### CLEANUP (suggest quick diffs)
+
+1. **Readability**: complex logic without comments; magic numbers; missing docstrings
+2. **Test coverage**: edge cases untested (empty/None, large payloads, error conditions)
+3. **Micro-optimizations**: tiny allocations in tight loops; missing caching of pure results
+
+### Review Structure
+
+Structure your review comment like this:
+
+**Summary**
+
+Lead with the motivation of the change, then explain what changed and why.
+Finish with general risk assessment and impact.
+
+**BLOCKER**
+
+Itemized violations of critical rules with short rationale
+
+**MAJOR**
+
+Concrete issues that should be fixed pre-merge
+
+**CLEANUP**
+
+Low-noise, quick-win improvements
+
+**Suggested diffs**
+
+Use diff/suggestion blocks (apply only if trivial and safe):
+
+```diff
+- data = open('config.json').read()
++ with open('config.json') as f:
++     data = f.read()
+```
+
+### Review Behavior
+
+- Prefer **one** top-comment; avoid scatter
+- If evidence is weak/speculative, ask a short question instead of asserting
+- If change is broad: propose a tiny follow-up PR rather than expanding this one
+
+### Review Checklist
+
+Mental checklist before posting review:
+
+1. **Async paths non-blocking?** Blocking operations properly handled?
+2. **Tests added/updated?** Coverage for edge cases? No flakiness?
+3. **Code follows [CONTRIBUTING.md](CONTRIBUTING.md)?** Style, organization, principles?
+4. **Documentation updated?** If behavior changed, are docs/examples updated?
+5. **Security basics ok?** Inputs validated? No dangerous operations? Secrets handled properly?
+6. **Breaking changes?** Backward compatibility preserved or migration path clear?
+
+---
+
 > This file complements [CONTRIBUTING.md](CONTRIBUTING.md).
 > For detailed workflow, testing, and contribution process, see CONTRIBUTING.md.
+> 
+> Maintainers: update this file as conventions evolve.
+> If changes are general, consider creating a PR to https://github.com/zauberzeug/nicegui-template so others can benefit from it.
