@@ -219,8 +219,8 @@ This project includes AI instruction files to help assistants understand our tem
 
 When using AI assistants:
 
-- Review [AGENT.md](AGENT.md) for template-specific guidelines
-- Always review and understand AI-generated code before committing
+- See this file for specific guidelines -- the other files mentioned above are just symlinks to the template files
+- Always review and understand AI-generated code before committing -- you must take full responsibility for the code you commit
 - Ensure the code follows our style guidelines and principles
 - Test template generation with various option combinations
 - Don't blindly accept suggestions - think critically about the solutions
