@@ -19,6 +19,102 @@ By participating, you agree to abide by its terms.
 We are excited that you want to contribute code to the NiceGUI template.
 We're always looking for bug fixes, performance improvements, and new features.
 
+## About This Project
+
+### This is a Copier Template Project
+
+- Main output: Projects generated from `template/` directory
+- Users run `copier copy` to generate new projects
+- Template files use Jinja2 syntax (`{{variable}}`, `{% if %}`, etc.)
+- Configuration in `copier.yml` defines questions and options
+
+### Key Areas
+
+- **`template/`** - Template files that get copied/rendered for new projects
+  - Use Jinja2 templating syntax
+  - Filenames can be conditional: `{% if condition %}filename{% endif %}.jinja`
+  - Keep templates generic and universally applicable
+- **`tests/`** - Template generation tests using pytest-copie
+  - Test all combinations of options
+  - Verify generated files exist and contain expected content
+- **`copier.yml`** - Question definitions and template configuration
+  - Questions should be clear and have good defaults
+  - Use `when` for conditional questions
+  - Update README.md table when adding questions
+
+### Template-Specific Guidelines
+
+**What to Avoid:**
+
+- **Project-specific details in templates** - Keep templates generic and universal
+- **Breaking existing generated projects** - Template changes affect all users
+- **Missing tests** - Every template option combination should be tested
+- **Undocumented questions** - All copier.yml questions must be in README.md table
+- **Complex Jinja2 logic** - Keep template logic simple and readable
+- **Duplicate content** - Use Jinja2 includes/variables to avoid repetition in templates
+
+**Jinja2 Templating:**
+
+- Use `{{ variable }}` for substitution
+- Use `{% if condition %}...{% endif %}` for conditional content
+- Use `{%- ... -%}` to control whitespace (remove newlines)
+- Keep logic simple - complex logic belongs in copier.yml
+
+**File Naming:**
+
+- Conditional files: `{% if use_feature %}filename{% endif %}.jinja`
+- Generated filename: `{{ variable }}.py.jinja`
+- Remove `.jinja` extension in generated output
+
+**Testing:**
+
+- Test with different option combinations
+- Verify file existence and content
+- Test that generated projects work (can install, run, lint)
+
+**Before Submitting:**
+
+1. Tests written and passing?
+2. README.md table updated if copier.yml changed?
+3. Template syntax valid (no Jinja2 errors)?
+4. Generated projects work correctly?
+5. Code follows style guidelines?
+
+### Review Criteria for Template Changes
+
+When reviewing PRs, pay special attention to:
+
+**BLOCKER Issues (must fix):**
+
+- **Template syntax errors**: Invalid Jinja2 syntax, undefined variables, broken conditionals
+- **Breaking changes**: Changes that break existing generated projects without migration path
+- **Missing tests**: New template options without corresponding tests; untested file combinations
+- **Documentation gaps**: New copier.yml questions not added to README.md table
+- **Security**: Exposed secrets/credentials in templates or tests
+
+**MAJOR Issues (should fix):**
+
+- **Template quality**: Complex/hard-to-understand Jinja2 logic; should be simplified
+- **Scope creep**: Project-specific details in templates (should stay generic/universal)
+- **File placement**: Unexpected template file location without rationale
+- **Test coverage**: Edge cases untested (various option combinations, conditional file generation)
+- **Unnecessary complexity**: Simpler template design meets requirements
+- **Duplicate content**: Repeated Jinja2 blocks that should use variables or includes
+
+**CLEANUP Suggestions:**
+
+- **Readability**: Complex template logic without comments; unclear variable names
+- **Whitespace handling**: Missing `{%- -%}` in Jinja2 where whitespace control needed
+- **Consistency**: Inconsistent template patterns across similar files
+
+**Template-Specific Checks:**
+
+- Can the generated project be installed and run?
+- Is Jinja2 syntax valid with proper variable substitution?
+- Do conditional filenames work correctly?
+- Are all combinations of copier.yml options tested?
+- Is README.md updated with new questions?
+
 ## Setup
 
 ### Locally

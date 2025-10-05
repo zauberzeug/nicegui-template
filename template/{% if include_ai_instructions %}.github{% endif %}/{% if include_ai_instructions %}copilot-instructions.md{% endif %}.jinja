@@ -1,4 +1,4 @@
-# GitHub Copilot – Review Instructions for {{ project_name }}
+# GitHub Copilot – Review Instructions
 
 **Purpose**: Maximize signal/noise, maintain code quality, and offload maintainers.
 Copilot acts as a _single, concise reviewer_.
@@ -10,7 +10,7 @@ This file defines review-specific automation rules only.
 
 ## Scope & Tone
 
-- Audience: PR authors and maintainers of {{ project_name }}
+- Audience: PR authors and maintainers
 - Voice: concise, technical, actionable. No style opinions when linters/formatters are green
 - Output format: one summary + grouped findings (**BLOCKER**, **MAJOR**, **CLEANUP**) + **suggested diff** blocks where possible
 
@@ -82,7 +82,7 @@ Use GitHub's suggestion blocks (apply only if trivial and safe):
 
 Mental checklist before posting review:
 
-1. **Async paths non-blocking?** Using `run.cpu_bound()` / `run.io_bound()` / `background_tasks.create()` appropriately? No `asyncio.create_task()`?
+1. **Async paths non-blocking?** Blocking operations properly handled?
 2. **Tests added/updated?** Coverage for edge cases? No flakiness?
 3. **Code follows [CONTRIBUTING.md](../CONTRIBUTING.md)?** Style, organization, principles?
 4. **Documentation updated?** If behavior changed, are docs/examples updated?
