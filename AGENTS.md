@@ -1,1 +1,1 @@
-template/{% if include_ai_instructions %}AGENT.md{% endif %}.jinja
+template/{% if include_ai_instructions %}AGENTS.md{% endif %}.jinja
