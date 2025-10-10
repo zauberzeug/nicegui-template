@@ -2,10 +2,12 @@
 
 ## Prerequisites
 
-`pipx` is used to install `copier` independent of your new project's dependencies:
+`pipx` is used to install tools like `copier` independent of other tools' or projects' dependencies:
 
 1. install `pipx` according to the documentation [here](https://pipx.pypa.io/stable/).
 2. install [`copier`](https://copier.readthedocs.io/en/stable/) with pipx: `pipx install copier` (tested with `copier==9.7.1`).
+3. it's recommended to use a virtual environment. If you don't have `virtualenv` installed, install it with: `pipx install virtualenv`.
+4. if you want to use Poetry for managing your project's dependencies, install [Poetry](https://python-poetry.org/): `pipx install copier` (tested with `poetry==2.2.1`).
 
 ## Quickstart
 
@@ -27,11 +29,16 @@ cd path/to/project
 git init
 ```
 
-4. create a virtual environment:
+Now you can connect your local repository to GitHub by [creating a new repository](https://github.com/new).
+Pay attention to not add a README.md, etc. since your project already has all of this.
+GitHub then gives you the necessary commands to connect the origin to your local project.
+Look out for the part "…or push an existing repository from the command line" and run those commands.
 
+4. create a virtual environment:
 ```bash
-virtualenv .venv # or without virtualenv:
-python -m venv .venv
+virtualenv .venv
+# add -p $PATH_TO_PYTHON_EXECUTABLE to specify a python version, for example:
+virtualenv .venv -p $PYENV_ROOT/versions/3.12.10/bin/python
 
 source .venv/bin/activate # to activate your virtual environment
 ```
@@ -39,12 +46,22 @@ source .venv/bin/activate # to activate your virtual environment
 5. install standard dependencies to start working:
 
 ```bash
-poetry install --with dev # with poetry
-pip install -r requirements-dev.txt # without poetry
+# with Poetry
+poetry lock
+poetry install --with dev
+
+# without poetry
+pip install -r requirements-dev.txt
 ```
 
-6. start your project:
+6. if you added pre-commit in step 1, do:
+```bash
+pre-commit install
+git add .
+git commit -m "initial commit"
+```
 
+7. start your project:
 ```bash
 ./main.py
 ```
