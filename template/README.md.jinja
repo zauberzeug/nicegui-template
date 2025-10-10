@@ -21,8 +21,8 @@ source .venv/bin/activate # to activate your virtual environment
 ```bash
 {% if use_poetry %}poetry run {% endif %}./main.py
 ```
+{%- if use_precommit %}
 
-{% if use_precommit %}
 ## pre-commit
 
 [pre-commit](https://pre-commit.com/) is a tool to help you manage and run pre-commit hooks in your code.
@@ -38,4 +38,4 @@ You can also run the hooks manually by running:
 ```bash
 pre-commit run --all-files
 ```
-{% endif %}
+{%- endif %}

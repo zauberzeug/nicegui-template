@@ -8,7 +8,11 @@ project_name:
 module_name:
   type: str
   help: What should the main module be called?
-  default: "{{ project_name }}"
+  default: "{{ project_name | replace('-', '_') }}"
+  validator: >-
+    {% if not (module_name | regex_search('^[a-z][a-z0-9\_]+$')) %}
+    module_name must start with a letter, followed one or more letters, digits or underscores all lowercase.
+    {% endif %}
 
 project_description:
   type: str
