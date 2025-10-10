@@ -1,1 +1,1 @@
-../template/{% if include_ai_instructions %}.github{% endif %}/{% if include_ai_instructions %}copilot-instructions.md{% endif %}.jinja
+../template/.github/{% if include_ai_instructions %}copilot-instructions.md{% endif %}.jinja
