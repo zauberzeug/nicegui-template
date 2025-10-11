@@ -1,0 +1,1 @@
+../../template/{% if include_ai_instructions %}.cursor{% endif %}/commands/summarize-branch.md.jinja

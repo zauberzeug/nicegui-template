@@ -59,6 +59,66 @@ def test_template_with_rosys(copie: Copie, answers: dict[str, str | list[str]]):
     assert (result.project_dir / cast(str, answers['module_name']) / 'system.py').is_file()
 
 
+def test_template_with_contributing_only(copie: Copie, answers: dict[str, str | list[str]]):
+    # ARRANGE & ACT
+    result = copie.copy(extra_answers={**answers, 'include_ai_instructions': False})
+    # ASSERT
+    assert result.exit_code == 0
+    assert result.exception is None
+    assert result.project_dir is not None
+    assert result.project_dir.is_dir()
+    assert contains_standard_files(result, cast(str, answers['project_name']))
+    assert (result.project_dir / 'CONTRIBUTING.md').is_file()
+    assert not (result.project_dir / 'AGENTS.md').exists()
+    assert not (result.project_dir / '.github' / 'copilot-instructions.md').exists()
+    assert not (result.project_dir / '.cursor' / 'rules').exists()
+    # Verify that CONTRIBUTING.md does NOT contain AI section when AI instructions are disabled
+    contributing_content = (result.project_dir / 'CONTRIBUTING.md').read_text()
+    assert 'AI-Assisted Contributions' not in contributing_content
+
+
+def test_template_with_ai_instructions(copie: Copie, answers: dict[str, str | list[str]]):
+    # ARRANGE & ACT
+    # When AI instructions are enabled, CONTRIBUTING.md is automatically included
+    result = copie.copy(extra_answers={**answers, 'include_ai_instructions': True})
+    # ASSERT
+    assert result.exit_code == 0
+    assert result.exception is None
+    assert result.project_dir is not None
+    assert result.project_dir.is_dir()
+    assert contains_standard_files(result, cast(str, answers['project_name']))
+    # CONTRIBUTING.md is mandatory when AI instructions are enabled
+    assert (result.project_dir / 'CONTRIBUTING.md').is_file()
+    assert (result.project_dir / 'AGENTS.md').is_file()
+    assert (result.project_dir / '.github' / 'copilot-instructions.md').is_file()
+    assert (result.project_dir / '.cursor' / 'rules').is_file()
+    assert (result.project_dir / '.cursor' / 'commands' / 'review-uncommitted.md').is_file()
+    assert (result.project_dir / '.cursor' / 'commands' / 'review-branch.md').is_file()
+    assert (result.project_dir / '.cursor' / 'commands' / 'simplify.md').is_file()
+    assert (result.project_dir / '.cursor' / 'commands' / 'explain.md').is_file()
+    assert (result.project_dir / '.cursor' / 'commands' / 'summarize-branch.md').is_file()
+    # Verify that CONTRIBUTING.md contains AI section when AI instructions are enabled
+    contributing_content = (result.project_dir / 'CONTRIBUTING.md').read_text()
+    assert 'AI-Assisted Contributions' in contributing_content
+    assert 'AGENTS.md' in contributing_content
+
+
+def test_template_without_contributing_and_ai(copie: Copie, answers: dict[str, str | list[str]]):
+    # ARRANGE & ACT
+    result = copie.copy(extra_answers={**answers, 'include_contributing': False, 'include_ai_instructions': False})
+    # ASSERT
+    assert result.exit_code == 0
+    assert result.exception is None
+    assert result.project_dir is not None
+    assert result.project_dir.is_dir()
+    assert contains_standard_files(result, cast(str, answers['project_name']))
+    assert not (result.project_dir / 'CONTRIBUTING.md').exists()
+    assert not (result.project_dir / 'AGENTS.md').exists()
+    assert not (result.project_dir / '.github' / 'copilot-instructions.md').exists()
+    assert not (result.project_dir / '.cursor' / 'rules').exists()
+    assert not (result.project_dir / '.cursor' / 'commands').exists()
+
+
 def test_poetry_lock(copie: Copie, answers: dict[str, str | list[str]]):
     # ARRANGE & ACT
     result = copie.copy(extra_answers={**answers, 'use_poetry': True})

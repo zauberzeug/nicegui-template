@@ -1,0 +1,1 @@
+../../template/{% if include_ai_instructions %}.cursor{% endif %}/commands/explain.md.jinja

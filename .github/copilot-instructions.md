@@ -1,0 +1,1 @@
+../template/.github/{% if include_ai_instructions %}copilot-instructions.md{% endif %}.jinja
