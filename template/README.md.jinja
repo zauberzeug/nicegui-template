@@ -36,6 +36,11 @@ source .venv/bin/activate # to activate your virtual environment
 {% if use_poetry %}poetry run {% endif %}./main.py
 ```
 
+4. run your tests:
+```bash
+{% if use_poetry %}poetry run pytest{% else %}pytest{% endif %}
+```
+
 ### Updating template settings
 
 To update your project configuration from the nicegui-template, run:
