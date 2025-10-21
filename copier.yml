@@ -3,7 +3,7 @@ _subdirectory: template
 # questions
 project_name:
   type: str
-  help: What is your project's name?
+  help: What is your project's name? Ololo
 
 module_name:
   type: str
@@ -18,10 +18,15 @@ project_description:
   type: str
   help: Shortly describe your project.
 
+use_poetry_dynamic_versioning:
+  type: bool
+  help: Would you like to use dynamic versioning with Poetry?
+  default: false
+
 use_poetry:
   type: bool
-  help: Would you like to use Poetry for dependency management?
-  default: false
+  help: Would you like to use Poetry for dependency management1?
+  default: true
 
 # use_docker:
 #   type: bool

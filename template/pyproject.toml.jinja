@@ -1,11 +1,26 @@
 {%- import 'py-versions.jinja' as python -%}
 [build-system]
-requires = ["{% if use_poetry %}poetry-core{% else %}hatchling{% endif %}"]
-build-backend = "{% if use_poetry %}poetry.core.masonry.api{% else %}hatchling.build{% endif %}"
+requires = [
+    {%- if use_poetry_dynamic_versioning %}
+    "poetry-core>=1.0.0",
+    "poetry-dynamic-versioning>=1.0.0,<2.0.0",
+    {%- elif use_poetry %}
+    "poetry-core",
+    {%- else %}
+    "hatchling",
+    {%- endif %}
+]
+build-backend = "{% if use_poetry_dynamic_versioning -%}
+poetry_dynamic_versioning.backend
+{%- elif use_poetry -%}
+poetry.core.masonry.api
+{%- else -%}
+hatchling.build
+{%- endif %}"
 
 [project]
 name = "{{ project_name }}"
-version = "0.1.0-dev"
+version = "{% if use_poetry_dynamic_versioning %}0.0.0{% else %}0.1.0-dev{% endif %}"
 description = "{{ project_description }}"
 authors = [{ name="Zauberzeug GmbH", email="info@zauberzeug.com" }]
 readme = "README.md"
@@ -26,6 +41,9 @@ dev = [
     "pre-commit (>=4.2.0, <5.0.0)",
     {%- endif %}
     "ruff (>=0.11.0, <1.0.0)"
+    {%- if use_poetry_dynamic_versioning %}
+    "poetry-dynamic-versioning (>=1.8.0, <2.0.0)",
+    {%- endif %}
 ]
 test = [
     "pytest (>=8.3.4, <9.0.0)",
