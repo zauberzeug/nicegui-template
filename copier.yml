@@ -21,7 +21,7 @@ project_description:
 use_poetry:
   type: bool
   help: Would you like to use Poetry for dependency management?
-  default: true
+  default: false
 
 use_poetry_dynamic_versioning:
   type: bool
