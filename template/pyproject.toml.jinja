@@ -53,6 +53,12 @@ test = [
 [tool.poetry]
 package-mode = false
 {%- endif %}
+{% if use_poetry_dynamic_versioning %}
+[tool.poetry-dynamic-versioning]
+enable = true
+vcs = "git"
+style = "pep440"
+{%- endif %}
 
 [tool.mypy]
 python_version = "{{ python.min(python_versions) }}"
