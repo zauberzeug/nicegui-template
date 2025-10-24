@@ -53,7 +53,8 @@ test = [
 [tool.poetry]
 package-mode = false
 {%- endif %}
-{% if use_poetry_dynamic_versioning %}
+{%- if use_poetry_dynamic_versioning %}
+
 [tool.poetry-dynamic-versioning]
 enable = true
 vcs = "git"
