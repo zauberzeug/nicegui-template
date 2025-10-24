@@ -1,24 +1,22 @@
+# virtual environments
 .venv/
 venv/
 *.env
 
+# file meta data
 *.egg-info/
 *.swp
-*.pickle
 .DS_Store
 
+# caches
 .mypy_cache/
 .pytest_cache/
 .cache/
 __pycache__
 
-dist
-
-.pio/
-
+# IDEs
 .idea
 
-site/
+# NiceGUI specific
 .nicegui/
-*.sqlite*
-test.py
+temp*.py
