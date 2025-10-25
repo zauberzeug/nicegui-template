@@ -1,1 +1,0 @@
-../template/{% if include_ai_instructions %}.cursor{% endif %}/rules.jinja

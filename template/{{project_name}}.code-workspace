@@ -4,6 +4,10 @@
       "path": "."
     }
   ],
+  "settings": {
+    "python.analysis.supportRestructuredText": true,
+    "ruff.enable": true
+  },
   "extensions": {
     "recommendations": [
       "charliermarsh.ruff",

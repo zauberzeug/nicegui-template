@@ -131,6 +131,14 @@ source .venv/bin/activate
 
 Then install the requirements with `pip install -r requirements-locked.txt` and you're good to go!
 
+If you would like to manually test your changes, use this command to make a copy with copier:
+
+```bash
+copier copy {PATH_TO_YOUR_FOLDER}/nicegui-template ./example --vcs-ref=HEAD
+```
+
+The same command can be used to update your project while developing.
+
 ## Coding Style Guide
 
 ### Formatting

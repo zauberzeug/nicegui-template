@@ -35,12 +35,13 @@ dependencies = [
 
 [project.optional-dependencies]
 dev = [
-    "mypy (>=1.14.1, <2.0.0)",
+    "mypy (>=1.18.2, <2.0.0)",
     "pylint (>=3.3.3, <4.0.0)",
     {%- if use_precommit %}
-    "pre-commit (>=4.2.0, <5.0.0)",
+    "pre-commit (>=4.3.0, <5.0.0)",
     {%- endif %}
-    "ruff (>=0.11.0, <1.0.0)",
+    "ruff (>=0.13.2, <1.0.0)",
+    "autopep8 (>=2.3.2, <3.0.0)",,
     {%- if use_poetry_dynamic_versioning %}
     "poetry-dynamic-versioning (>=1.8.0, <2.0.0)",
     {%- endif %}
@@ -64,7 +65,6 @@ style = "pep440"
 [tool.mypy]
 python_version = "{{ python.min(python_versions) }}"
 check_untyped_defs = true
-no_implicit_optional = true
 
 [tool.pylint]
 disable = [
