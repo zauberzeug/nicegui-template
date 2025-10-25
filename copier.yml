@@ -23,6 +23,12 @@ use_poetry:
   help: Would you like to use Poetry for dependency management?
   default: false
 
+use_poetry_dynamic_versioning:
+  type: bool
+  help: Would you like to use dynamic versioning for Poetry?
+  default: false
+  when: "{{ use_poetry }}"
+
 # use_docker:
 #   type: bool
 #   help: Would you like to use Docker for your project?
