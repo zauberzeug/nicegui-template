@@ -43,10 +43,9 @@ check_untyped_defs = true
 
 [tool.pylint]
 disable = [
-    "C0301", # Line too long
     "C0114", # Missing module docstring
     "C0116", # Missing function or method docstring
-    "R0903", # Too few public methods
+    "C0301", # Line too long (exceeds character limit)
 ]
 
 [tool.ruff]
@@ -56,14 +55,14 @@ target-version = "py{{ python.min(python_versions) | replace('.', '') }}"
 
 [tool.ruff.lint]
 select = [
-    "E",  # pycodestyle
-    "F",  # pyflakes
-    "W",  # pycodestyle
-    "B",  # bugbear
-    "I",  # isort
+    "B", # bugbear
+    "E", # pycodestyle
+    "F", # pyflakes
+    "I", # isort
+    "PL", # pylint
     "RUF", # ruff
     "UP", # pyupgrade
-    "PL", # pylint
+    "W", # pycodestyle
 ]
 fixable = [
     "I", # isort
