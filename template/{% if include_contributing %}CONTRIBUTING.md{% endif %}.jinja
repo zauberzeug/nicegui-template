@@ -131,9 +131,11 @@ Check your code with:
 {%- if use_poetry %}
 poetry run ruff check .
 poetry run mypy .
+poetry run pylint ./{{ module_name }}
 {%- else %}
 ruff check .
 mypy .
+pylint ./{{ module_name }}
 {%- endif %}
 ```
 {%- if use_precommit %}

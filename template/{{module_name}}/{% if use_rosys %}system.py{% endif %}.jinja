@@ -1,4 +1,5 @@
 import logging
+import os
 
 
 class System:
@@ -11,3 +12,12 @@ class System:
 
         # add your components here like:
         # self.wheels: Wheels = WheelsHardware()
+
+    def restart(self) -> None:
+        os.utime('main.py')
+
+    def log_status(self) -> None:
+        msg = '== System Status: '
+        # msg += f'speed: {self.wheels.angular_target_speed} '
+        msg += '=='
+        self._log.info(msg)
