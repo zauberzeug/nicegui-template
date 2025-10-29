@@ -1,11 +1,26 @@
 {%- import 'py-versions.jinja' as python -%}
 [build-system]
-requires = ["{% if use_poetry %}poetry-core{% else %}hatchling{% endif %}"]
-build-backend = "{% if use_poetry %}poetry.core.masonry.api{% else %}hatchling.build{% endif %}"
+requires = [
+    {%- if use_poetry_dynamic_versioning %}
+    "poetry-core>=1.0.0",
+    "poetry-dynamic-versioning>=1.0.0,<2.0.0",
+    {%- elif use_poetry %}
+    "poetry-core",
+    {%- else %}
+    "hatchling",
+    {%- endif %}
+]
+build-backend = "{% if use_poetry_dynamic_versioning -%}
+poetry_dynamic_versioning.backend
+{%- elif use_poetry -%}
+poetry.core.masonry.api
+{%- else -%}
+hatchling.build
+{%- endif %}"
 
 [project]
 name = "{{ project_name }}"
-version = "0.1.0-dev"
+version = "{% if use_poetry_dynamic_versioning %}0.0.0{% else %}0.1.0-dev{% endif %}"
 description = "{{ project_description }}"
 authors = [{ name="Zauberzeug GmbH", email="info@zauberzeug.com" }]
 readme = "README.md"
@@ -27,14 +42,21 @@ dev = [
     {%- endif %}
     "ruff (>=0.13.2, <1.0.0)",
     "autopep8 (>=2.3.2, <3.0.0)",
+    {%- if use_poetry_dynamic_versioning %}
+    "poetry-dynamic-versioning (>=1.8.0, <2.0.0)",
+    {%- endif %}
 ]
 test = [
     "pytest (>=8.3.4, <9.0.0)",
     "pytest-asyncio (>=0.25.3, <0.26.0)",
 ]
+{%- endif %}
+{%- if use_poetry_dynamic_versioning %}
 
-[tool.poetry]
-package-mode = false
+[tool.poetry-dynamic-versioning]
+enable = true
+vcs = "git"
+style = "pep440"
 {%- endif %}
 
 [tool.mypy]
@@ -43,10 +65,9 @@ check_untyped_defs = true
 
 [tool.pylint]
 disable = [
-    "C0301", # Line too long
     "C0114", # Missing module docstring
     "C0116", # Missing function or method docstring
-    "R0903", # Too few public methods
+    "C0301", # Line too long (exceeds character limit)
 ]
 
 [tool.ruff]
@@ -56,14 +77,14 @@ target-version = "py{{ python.min(python_versions) | replace('.', '') }}"
 
 [tool.ruff.lint]
 select = [
-    "E",  # pycodestyle
-    "F",  # pyflakes
-    "W",  # pycodestyle
-    "B",  # bugbear
-    "I",  # isort
+    "B", # bugbear
+    "E", # pycodestyle
+    "F", # pyflakes
+    "I", # isort
+    "PL", # pylint
     "RUF", # ruff
     "UP", # pyupgrade
-    "PL", # pylint
+    "W", # pycodestyle
 ]
 fixable = [
     "I", # isort
