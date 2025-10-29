@@ -15,7 +15,7 @@
 {%- set version_parts = max_version.split('.') -%}
 {%- set major = version_parts[0] | int -%}
 {%- set minor = version_parts[1] | int -%}
-{%- if minor < 13 %}{{ major }}.{{ minor + 1 }}{%- endif %}
+{{ major }}.{{ minor + 1 }}
 {%- endmacro -%}
 
 {# Return min and max python version #}
