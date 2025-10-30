@@ -37,7 +37,7 @@ source .venv/bin/activate  # On Windows: .venv\Scripts\activate
 
 ```bash
 {%- if use_poetry %}
-poetry install --all-extras
+poetry install --with dev,test
 {%- else %}
 pip install -r requirements-dev.txt
 {%- endif %}
