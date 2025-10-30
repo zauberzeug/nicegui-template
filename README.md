@@ -7,7 +7,7 @@
 1. install `pipx` according to the documentation [here](https://pipx.pypa.io/stable/).
 2. install [`copier`](https://copier.readthedocs.io/en/stable/) with pipx: `pipx install copier` (tested with `copier==9.7.1`).
 3. it's recommended to use a virtual environment. If you don't have `virtualenv` installed, install it with: `pipx install virtualenv`.
-4. if you want to use Poetry for managing your project's dependencies, install [Poetry](https://python-poetry.org/): `pipx install copier` (tested with `poetry==2.2.1`).
+4. if you want to use Poetry for managing your project's dependencies, install [Poetry](https://python-poetry.org/): `pipx install poetry` (tested with `poetry==2.2.1`).
 
 ## Quickstart
 
