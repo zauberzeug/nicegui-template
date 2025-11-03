@@ -36,7 +36,13 @@ use_poetry:
 use_uv:
   type: bool
   help: This is just to set the variable 'use_uv' for templating purposes.
-  default: "{% if package_management == 'uv' %}true{% else %}false{% endif %}"
+  default: "{{ package_management == 'uv' }}"
+  when: false
+
+use_pip:
+  type: bool
+  help: This is just to set the variable 'use_pip' for templating purposes.
+  default: "{{ package_management == 'pip' }}"
   when: false
 
 use_poetry_dynamic_versioning:
