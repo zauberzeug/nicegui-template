@@ -8,6 +8,8 @@
 - [NiceGUI](https://nicegui.io) for web interface
 {% if use_poetry -%}
 - [Poetry](https://python-poetry.org) for dependency management
+{% elif use_uv -%}
+- [uv](https://astral.sh/uv) for dependency management
 {% else -%}
 - pip for dependency management
 {% endif -%}
@@ -20,25 +22,29 @@
 
 1. create a virtual environment and activate it:
 ```bash
+{% if use_uv -%}
+uv venv -p {{ python_versions[0] }}
+{% else -%}
 virtualenv .venv # or without virtualenv:
 python -m venv .venv
+{% endif -%}
 
 source .venv/bin/activate # to activate your virtual environment
 ```
 
 2. install dependencies:
 ```bash
-{% if use_poetry %}poetry install --with dev,test{% else %}pip install -r requirements-dev.txt{% endif %}
+{% if use_poetry %}poetry install --with dev,test{% elif use_uv %}uv sync{% else %}pip install -r requirements-dev.txt{% endif %}
 ```
 
 3. start your project:
 ```bash
-{% if use_poetry %}poetry run {% endif %}./main.py
+{% if use_poetry %}poetry run {% elif use_uv %}uv run {% endif %}./main.py
 ```
 
 4. run your tests:
 ```bash
-{% if use_poetry %}poetry run pytest{% else %}pytest{% endif %}
+{% if use_poetry %}poetry run {% elif use_uv %}uv run {% endif %}pytest
 ```
 
 ### Updating template settings

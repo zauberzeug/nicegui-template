@@ -38,7 +38,9 @@ source .venv/bin/activate  # On Windows: .venv\Scripts\activate
 ```bash
 {%- if use_poetry %}
 poetry install --with dev,test
-{%- else %}
+{%- elif %}
+uv sync
+{% else %}
 pip install -r requirements-dev.txt
 {%- endif %}
 ```
@@ -111,11 +113,7 @@ pre-commit install
 Run tests before submitting:
 
 ```bash
-{%- if use_poetry %}
-poetry run pytest
-{%- else %}
-pytest
-{%- endif %}
+{% if use_poetry %}poetry run {% elif use_uv %}uv run {% endif %}pytest
 ```
 
 Write tests for:
@@ -128,15 +126,9 @@ Write tests for:
 Check your code with:
 
 ```bash
-{%- if use_poetry %}
-poetry run ruff check .
-poetry run mypy .
-poetry run pylint ./{{ module_name }}
-{%- else %}
-ruff check .
-mypy .
-pylint ./{{ module_name }}
-{%- endif %}
+{% if use_poetry %}poetry run {% elif use_uv %}uv run {% endif %}ruff check .
+{% if use_poetry %}poetry run {% elif use_uv %}uv run {% endif %}mypy .
+{% if use_poetry %}poetry run {% elif use_uv %}uv run {% endif %}pylint ./{{ module_name }}
 ```
 {%- if use_precommit %}
 
