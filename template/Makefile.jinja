@@ -29,7 +29,4 @@ ruff:
 	{% if use_poetry %}poetry run {% endif %}ruff check ./{{ module_name }}
 {%- endif %}
 
-pytest:
-	{% if use_poetry %}poetry run {% endif %}pytest
-
 check: mypy {% if use_precommit %}pre-commit{% else %}ruff{% endif %} pylint
