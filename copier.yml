@@ -18,9 +18,9 @@ project_description:
   type: str
   help: Shortly describe your project.
 
-package_management:
+dependency_management:
   type: str
-  help: Which package management tool would you like to use?
+  help: Which dependency management tool would you like to use?
   default: "uv"
   choices:
     "uv (astral.sh/uv)": "uv"
@@ -30,26 +30,26 @@ package_management:
 use_poetry:
   type: bool
   help: This is just to set the variable 'use_poetry' for templating purposes.
-  default: "{{ package_management == 'poetry' }}"
+  default: "{{ dependency_management == 'poetry' }}"
   when: false
 
 use_uv:
   type: bool
   help: This is just to set the variable 'use_uv' for templating purposes.
-  default: "{{ package_management == 'uv' }}"
+  default: "{{ dependency_management == 'uv' }}"
   when: false
 
 use_pip:
   type: bool
   help: This is just to set the variable 'use_pip' for templating purposes.
-  default: "{{ package_management == 'pip' }}"
+  default: "{{ dependency_management == 'pip' }}"
   when: false
 
 use_poetry_dynamic_versioning:
   type: bool
   help: Would you like to use dynamic versioning for Poetry?
   default: false
-  when: "{{ package_management == 'poetry' }}"
+  when: "{{ dependency_management == 'poetry' }}"
 
 # use_docker:
 #   type: bool
