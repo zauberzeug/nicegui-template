@@ -1,0 +1,35 @@
+.PHONY: install install-ci mypy pylint pre-commit pytest
+
+install:
+	{% if use_poetry %}
+	poetry sync --with dev,test
+	{% else %}
+	pip install -r requirements-dev.txt
+	{% endif %}
+
+install-ci:
+	{% if use_poetry %}
+	poetry install --with dev,test --no-root
+	{% else %}
+	pip install -r requirements-dev.txt
+	{% endif %}
+
+mypy:
+	{% if use_poetry %}poetry run {% endif %}mypy ./{{ module_name }}
+
+pylint:
+	{% if use_poetry %}poetry run {% endif %}pylint ./{{ module_name }}
+{%- if use_precommit %}
+
+pre-commit:
+	{% if use_poetry %}poetry run {% endif %}pre-commit run --all-files
+{%- else %}
+
+ruff:
+	{% if use_poetry %}poetry run {% endif %}ruff check ./{{ module_name }}
+{%- endif %}
+
+pytest:
+	{% if use_poetry %}poetry run {% endif %}pytest
+
+check: mypy {% if use_precommit %}pre-commit{% else %}ruff{% endif %} pylint
