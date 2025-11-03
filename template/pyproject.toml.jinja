@@ -52,6 +52,7 @@ test = [
     "pytest-asyncio (>=0.25.3, <0.26.0)",
 ]
 types = []
+{%- endif %}
 {%- if use_poetry %}
 
 [tool.poetry.group.dev]
@@ -67,7 +68,6 @@ enable = true
 vcs = "git"
 style = "pep440"
 {%- endif %}
-{%- else %}
 
 [tool.mypy]
 python_version = "{{ python.min(python_versions) }}"
