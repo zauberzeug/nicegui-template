@@ -9,10 +9,10 @@ jobs:
       fail-fast: false
       matrix:
         tools:
-          - command: ["mypy", "./{{ module_name }}", "--non-interactive", "--install-types"]
-          - command: ["pylint", "./{{ module_name }}"]
-          - command: [{% if use_precommit %}"pre-commit", "run", "--all-files"{% else %}"ruff", "check", "./{{ module_name }}"{% endif %}]
-    name: {% raw %}code check - ${{ matrix.tools.command[0] }}{% endraw %}
+          - command: "mypy"
+          - command: "pylint"
+          - command: {% if use_precommit %}"pre-commit"{% else %}"ruff"{% endif %}
+    name: {% raw %}code check - ${{ matrix.tools.command }}{% endraw %}
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
@@ -27,9 +27,9 @@ jobs:
           python-version: "{{ python.min(python_versions) }}"
           cache: "{% if use_poetry %}poetry{% else %}pip{% endif %}"
       - name: install dependencies
-        run: {% if use_poetry %}poetry install --with dev --no-root{% else %}pip install -r requirements-dev.txt{% endif %}
-      - name: {% raw %}${{ matrix.tools.command[0] }}{% endraw %}
-        run: {% if use_poetry %}poetry run {% endif %}{% raw %}${{ join(matrix.tools.command, ' ') }}{% endraw %}
+        run: make install-ci
+      - name: {% raw %}${{ matrix.tools.command }}{% endraw %}
+        run: make {% raw %}${{ matrix.tools.command }}{% endraw %}
   test:
     strategy:
       matrix:
@@ -49,6 +49,6 @@ jobs:
           python-version: {% raw %}${{ matrix.python }}{% endraw %}
           cache: "{% if use_poetry %}poetry{% else %}pip{% endif %}"
       - name: install dependencies
-        run: {% if use_poetry %}poetry install --with test --no-root{% else %}pip install -r requirements-dev.txt{% endif %}
+        run: make install-ci
       - name: pytest
-        run: {% if use_poetry %}poetry run {% endif %}pytest
+        run: make pytest

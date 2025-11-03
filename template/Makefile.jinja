@@ -1,18 +1,18 @@
-.PHONY: install install-ci mypy pylint pre-commit pytest
+.PHONY: sync install-ci mypy pylint pre-commit pytest
 
-install:
-	{% if use_poetry %}
+sync:
+	{%- if use_poetry %}
 	poetry sync --with dev,test
-	{% else %}
+	{%- else %}
 	pip install -r requirements-dev.txt
-	{% endif %}
+	{%- endif %}
 
 install-ci:
-	{% if use_poetry %}
+	{%- if use_poetry %}
 	poetry install --with dev,test --no-root
-	{% else %}
+	{%- else %}
 	pip install -r requirements-dev.txt
-	{% endif %}
+	{%- endif %}
 
 mypy:
 	{% if use_poetry %}poetry run {% endif %}mypy ./{{ module_name }}
