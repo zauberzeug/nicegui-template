@@ -68,6 +68,11 @@ enable = true
 vcs = "git"
 style = "pep440"
 {%- endif %}
+{%- if use_uv %}
+
+[tool.uv]
+default-groups = ["dev", "test"]
+{%- endif %}
 
 [tool.mypy]
 python_version = "{{ python.min(python_versions) }}"
