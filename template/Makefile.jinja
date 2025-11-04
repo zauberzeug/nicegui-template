@@ -29,21 +29,20 @@ install-ci:
 
 ## mypy		Run mypy type checks.
 mypy:
-	{% if use_poetry %}poetry run {% endif %}mypy ./{{ module_name }}
+	{% if use_poetry %}poetry run {% endif %}mypy .
 
 ## pylint		Run pylint code analysis.
 pylint:
 	{% if use_poetry %}poetry run {% endif %}pylint ./{{ module_name }}
+
+## ruff		Run ruff code analysis.
+ruff:
+	{% if use_poetry %}poetry run {% endif %}ruff check ./{{ module_name }}
 {%- if use_precommit %}
 
 ## pre-commit	Run pre-commit hooks on all files.
 pre-commit:
 	{% if use_poetry %}poetry run {% endif %}pre-commit run --all-files
-{%- else %}
-
-## ruff		Run ruff code analysis.
-ruff:
-	{% if use_poetry %}poetry run {% endif %}ruff check ./{{ module_name }}
 {%- endif %}
 
 ## check		Run all code checks (mypy, {% if use_precommit %}pre-commit{% else %}ruff{% endif %}, pylint).
