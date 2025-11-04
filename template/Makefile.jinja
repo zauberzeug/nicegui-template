@@ -15,6 +15,8 @@ help: Makefile
 sync:
 	{%- if use_poetry %}
 	poetry sync --with dev,test
+	{%- elif use_uv %}
+	uv sync
 	{%- else %}
 	pip install -r requirements-dev.txt
 	{%- endif %}
@@ -23,26 +25,28 @@ sync:
 install-ci:
 	{%- if use_poetry %}
 	poetry install --with dev,test --no-root
+	{%- elif use_uv %}
+	uv sync
 	{%- else %}
 	pip install -r requirements-dev.txt
 	{%- endif %}
 
 ## mypy		Run mypy type checks.
 mypy:
-	{% if use_poetry %}poetry run {% endif %}mypy .
+	{% if use_poetry %}poetry run {% elif use_uv %}uv run {% endif %}mypy .
 
 ## pylint		Run pylint code analysis.
 pylint:
-	{% if use_poetry %}poetry run {% endif %}pylint ./{{ module_name }}
+	{% if use_poetry %}poetry run {% elif use_uv %}uv run {% endif %}pylint ./{{ module_name }}
 
 ## ruff		Run ruff code analysis.
 ruff:
-	{% if use_poetry %}poetry run {% endif %}ruff check ./{{ module_name }}
+	{% if use_poetry %}poetry run {% elif use_uv %}uv run {% endif %}ruff check ./{{ module_name }}
 {%- if use_precommit %}
 
 ## pre-commit	Run pre-commit hooks on all files.
 pre-commit:
-	{% if use_poetry %}poetry run {% endif %}pre-commit run --all-files
+	{% if use_poetry %}poetry run {% elif use_uv %}uv run {% endif %}pre-commit run --all-files
 {%- endif %}
 
 ## check		Run all code checks (mypy, {% if use_precommit %}pre-commit{% else %}ruff{% endif %}, pylint).
