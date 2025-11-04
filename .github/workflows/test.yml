@@ -39,6 +39,7 @@ jobs:
       - name: install dependencies
         run: |
           pipx install poetry
+          pipx install uv
           pip install -r requirements-locked.txt
       - name: pytest
         run: pytest
