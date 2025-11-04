@@ -36,11 +36,7 @@ source .venv/bin/activate  # On Windows: .venv\Scripts\activate
 3. Install dependencies:
 
 ```bash
-{%- if use_poetry %}
-poetry install --with dev,test
-{%- else %}
-pip install -r requirements-dev.txt
-{%- endif %}
+make sync
 ```
 {%- if use_precommit %}
 
@@ -128,22 +124,18 @@ Write tests for:
 Check your code with:
 
 ```bash
-{%- if use_poetry %}
-poetry run ruff check .
-poetry run mypy .
-poetry run pylint ./{{ module_name }}
-{%- else %}
-ruff check .
-mypy .
-pylint ./{{ module_name }}
-{%- endif %}
+make check # which runs:
+# ruff check .
+# mypy .
+# pylint ./{{ module_name }}
 ```
 {%- if use_precommit %}
 
 Or let pre-commit handle it:
 
 ```bash
-pre-commit run --all-files
+make pre-commit # which runs:
+# pre-commit run --all-files
 ```
 {%- endif %}
 
