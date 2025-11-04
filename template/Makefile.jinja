@@ -1,0 +1,49 @@
+.PHONY: help sync install-ci mypy pylint pre-commit
+
+default: help
+
+## Available commands for this Makefile, use 'make <command>' to execute:
+
+##
+## ---------------
+
+## help		Print commands help.
+help: Makefile
+	@sed -n 's/^##//p' $<
+
+## sync		Install all dependencies for development and testing.
+sync:
+	{%- if use_poetry %}
+	poetry sync --with dev,test
+	{%- else %}
+	pip install -r requirements-dev.txt
+	{%- endif %}
+
+## install-ci	Install all dependencies for CI testing.
+install-ci:
+	{%- if use_poetry %}
+	poetry install --with dev,test --no-root
+	{%- else %}
+	pip install -r requirements-dev.txt
+	{%- endif %}
+
+## mypy		Run mypy type checks.
+mypy:
+	{% if use_poetry %}poetry run {% endif %}mypy .
+
+## pylint		Run pylint code analysis.
+pylint:
+	{% if use_poetry %}poetry run {% endif %}pylint ./{{ module_name }}
+
+## ruff		Run ruff code analysis.
+ruff:
+	{% if use_poetry %}poetry run {% endif %}ruff check ./{{ module_name }}
+{%- if use_precommit %}
+
+## pre-commit	Run pre-commit hooks on all files.
+pre-commit:
+	{% if use_poetry %}poetry run {% endif %}pre-commit run --all-files
+{%- endif %}
+
+## check		Run all code checks (mypy, {% if use_precommit %}pre-commit{% else %}ruff{% endif %}, pylint).
+check: mypy {% if use_precommit %}pre-commit{% else %}ruff{% endif %} pylint

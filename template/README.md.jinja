@@ -34,6 +34,7 @@ source .venv/bin/activate # to activate your virtual environment
 
 2. install dependencies:
 ```bash
+make sync # or directly:
 {% if use_poetry %}poetry install --with dev,test{% elif use_uv %}uv sync{% else %}pip install -r requirements-dev.txt{% endif %}
 ```
 
@@ -71,6 +72,7 @@ pre-commit install
 You can also run the hooks manually by running:
 
 ```bash
-pre-commit run --all-files
+make pre-commit # which runs:
+# pre-commit run --all-files
 ```
 {%- endif %}

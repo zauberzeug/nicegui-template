@@ -146,13 +146,7 @@ def test_code_checkers(copie: Copie,
                                        'package_management': package_management,
                                        'use_rosys': bool(use_rosys),
                                        'use_precommit': bool(use_precommit)})
-    arguments = [task]
-    if task == 'mypy':
-        arguments.append('.')
-    elif task == 'pylint':
-        arguments.append(f'./{result.answers["module_name"]}')
-    elif task == 'ruff':
-        arguments.extend(['check', '.'])
+    arguments = [task] if task == 'pytest' else ['make', task]
     # ACT
     test_run: CompletedProcess = subprocess.run(arguments, cwd=result.project_dir, check=False)
     # ASSERT
