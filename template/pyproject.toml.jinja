@@ -17,6 +17,16 @@ poetry.core.masonry.api
 {%- else -%}
 hatchling.build
 {%- endif %}"
+{%- if module_name != project_name | replace('-', '_') %}
+
+{% if use_poetry -%}
+[tool.poetry]
+packages = [{ include = "{{ module_name }}" }]
+{%- else -%}
+[tool.hatch.build.targets.wheel]
+packages = ["{{ module_name }}"]
+{%- endif %}
+{%- endif %}
 
 [project]
 name = "{{ project_name }}"
