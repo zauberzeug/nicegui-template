@@ -1,33 +1,13 @@
 {%- import 'py-versions.jinja' as python -%}
+{%- if use_poetry_dynamic_versioning -%}
 [build-system]
 requires = [
-    {%- if use_poetry_dynamic_versioning %}
     "poetry-core>=1.0.0",
     "poetry-dynamic-versioning>=1.0.0,<2.0.0",
-    {%- elif use_poetry %}
-    "poetry-core",
-    {%- else %}
-    "hatchling",
-    {%- endif %}
 ]
-build-backend = "{% if use_poetry_dynamic_versioning -%}
-poetry_dynamic_versioning.backend
-{%- elif use_poetry -%}
-poetry.core.masonry.api
-{%- else -%}
-hatchling.build
-{%- endif %}"
-{%- if module_name != project_name | replace('-', '_') %}
+build-backend = "poetry_dynamic_versioning.backend"
 
-{% if use_poetry -%}
-[tool.poetry]
-packages = [{ include = "{{ module_name }}" }]
-{%- else -%}
-[tool.hatch.build.targets.wheel]
-packages = ["{{ module_name }}"]
-{%- endif %}
-{%- endif %}
-
+{% endif -%}
 [project]
 name = "{{ project_name }}"
 version = "{% if use_poetry_dynamic_versioning %}0.0.0{% else %}0.1.0-dev{% endif %}"
@@ -70,6 +50,9 @@ optional = true
 
 [tool.poetry.group.test]
 optional = true
+
+[tool.poetry]
+package-mode = false
 {%- endif %}
 {%- if use_poetry_dynamic_versioning %}
 
