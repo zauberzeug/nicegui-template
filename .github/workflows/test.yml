@@ -31,7 +31,7 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
-      - name: setup up Python
+      - name: set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
