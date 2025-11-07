@@ -61,4 +61,4 @@ jobs:
       - name: install dependencies
         run: make install-ci
       - name: pytest
-        run: {%if use_poetry %}poetry run {% endif %}pytest
+        run: {% if use_poetry %}poetry run {% elif use_uv %}uv run {% endif %}pytest
