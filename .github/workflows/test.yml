@@ -16,21 +16,25 @@ jobs:
     name: code check - ${{ matrix.tools.command[0] }}
     steps:
       - uses: actions/checkout@v4
+      - name: set up uv
+        uses: astral-sh/setup-uv@v6
       - name: set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
           cache: "pip"
       - name: install dependencies
-        run: pip install -r requirements-locked.txt
+        run: uv sync --locked
       - name: ${{ matrix.tools.command[0] }}
-        run: ${{ join(matrix.tools.command, ' ') }}
+        run: uv run ${{ join(matrix.tools.command, ' ') }}
 
   test:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
+      - name: set up uv
+        uses: astral-sh/setup-uv@v6
       - name: set up Python
         uses: actions/setup-python@v5
         with:
@@ -40,6 +44,6 @@ jobs:
         run: |
           pipx install poetry
           pipx install uv
-          pip install -r requirements-locked.txt
+          uv sync --locked
       - name: pytest
-        run: pytest
+        run: uv run pytest
