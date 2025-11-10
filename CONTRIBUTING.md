@@ -119,17 +119,15 @@ When reviewing PRs, pay special attention to:
 
 ### Locally
 
-To set up a local development environment for the NiceGUI template, you'll need to have Python 3.11+ and pip installed.
+To set up a local development environment for the NiceGUI template, you'll need to have the prerequisites from the README.md, Python 3.11+ and [uv](https://astral.sh/uv) installed.
 
-First create a virtual environment with the dependencies to run tests and linting tools inside the project root and activate it:
+Then install the requirements like so, this also creates a virtual environment for you:
 
 ```bash
-virtualenv .venv
+uv sync
 
-source .venv/bin/activate
+source .venv/bin/activate # manually activate the virtual environment
 ```
-
-Then install the requirements with `pip install -r requirements-locked.txt` and you're good to go!
 
 If you would like to manually test your changes, use this command to make a copy with copier:
 
@@ -147,7 +145,7 @@ We use [autopep8](https://github.com/hhatto/autopep8) with a 120 character line 
 Before submitting a pull request, please run
 
 ```bash
-autopep8 --max-line-length=120 --in-place --recursive .
+uv run autopep8 --max-line-length=120 --in-place --recursive .
 ```
 
 on your code to ensure that it meets our formatting guidelines.
@@ -197,7 +195,7 @@ Before submitting a pull request, please make sure that all tests are passing.
 To run them all, use the following command in the root directory of the NiceGUI template:
 
 ```bash
-pytest
+uv run pytest
 ```
 
 ## Documentation

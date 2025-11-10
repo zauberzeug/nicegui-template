@@ -35,7 +35,7 @@ Pay attention to not add a README.md, etc. since your project already has all of
 GitHub then gives you the necessary commands to connect the origin to your local project.
 Look out for the part "…or push an existing repository from the command line" and run those commands.
 
-4. create a virtual environment:
+4. create a virtual environment (you can skip this if you're using uv):
 ```bash
 virtualenv .venv
 # add -p $PATH_TO_PYTHON_EXECUTABLE to specify a python version, for example:
