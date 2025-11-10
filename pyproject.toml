@@ -5,7 +5,16 @@ description = "A template project for building web applications with NiceGUI."
 authors = [{ name = "Zauberzeug GmbH", email = "info@zauberzeug.com" }]
 readme = "README.md"
 requires-python = ">=3.11, <4.0"
-dependencies = []
+dependencies = [
+    "copier==9.7.1",
+    "mypy>=1.18.2",
+    "nicegui>=3.2.0",
+    "pylint>=4.0.2",
+    "pytest>=9.0.0",
+    "pytest-copie==0.2.2",
+    "rosys>=0.30.0",
+    "ruff>=0.14.4",
+]
 
 [dependency-groups]
 dev = [
@@ -13,6 +22,9 @@ dev = [
 ]
 test = []
 types = []
+
+[tool.uv]
+default-groups = ["dev", "test"]
 
 [tool.ruff]
 line-length = 120
@@ -68,4 +80,5 @@ no_implicit_optional = true
 exclude = '''(?x)(
     ^template/.*$    # files in the "template" directory
     |^conftest\.py$  # conftest.py file in the root directory
+    |^\.venv/.*$     # files in virtual environment .venv
 )'''
