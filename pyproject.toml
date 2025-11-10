@@ -1,0 +1,71 @@
+[project]
+name = "nicegui-template"
+version = "0.4.2"
+description = "A template project for building web applications with NiceGUI."
+authors = [{ name = "Zauberzeug GmbH", email = "info@zauberzeug.com" }]
+readme = "README.md"
+requires-python = ">=3.11, <4.0"
+dependencies = []
+
+[dependency-groups]
+dev = [
+    {include-group = "types"},
+]
+test = []
+types = []
+
+[tool.ruff]
+line-length = 120
+indent-width = 4
+target-version = "py311"
+
+[tool.ruff.lint]
+select = [
+    "E",  # pycodestyle
+    "F",  # pyflakes
+    "W",  # pycodestyle
+    "B",  # bugbear
+    "I",  # isort
+    "RUF", # ruff
+    "UP", # pyupgrade
+    "PL", # pylint
+]
+ignore = [
+    "PLR0913", # pylint: Too many arguments
+]
+
+[tool.pytest.ini_options]
+log_cli = true
+log_cli_level = "INFO"
+log_cli_format = "%(asctime)s [%(levelname)8s] %(message)s (%(filename)s:%(lineno)s)"
+log_cli_date_format = "%Y-%m-%d %H:%M:%S"
+cache_dir = "../.pytest_cache"
+testpaths = [
+    "tests"
+]
+python_files = "test_*.py"
+python_functions = "test_*"
+
+[tool.pylint.main]
+ignore-paths = [".venv|.venv"]
+py-version = "3.11"
+
+[tool.pylint.format]
+max-line-length = 120
+
+[tool.pylint."messages control"]
+disable = [
+    "C0111",  # missing docstring
+    "C0103",  # invalid-name
+    "R0913",  # too-many-arguments
+    "R0917",  # too-many-positional-arguments
+]
+
+[tool.mypy]
+python_version = "3.11"
+check_untyped_defs = true
+no_implicit_optional = true
+exclude = '''(?x)(
+    ^template/.*$    # files in the "template" directory
+    |^conftest\.py$  # conftest.py file in the root directory
+)'''
