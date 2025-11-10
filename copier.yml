@@ -18,16 +18,38 @@ project_description:
   type: str
   help: Shortly describe your project.
 
+dependency_management:
+  type: str
+  help: Which dependency management tool would you like to use?
+  default: "uv"
+  choices:
+    "uv (astral.sh/uv)": "uv"
+    "poetry (python-poetry.org)": "poetry"
+    "pip": "pip"
+
 use_poetry:
   type: bool
-  help: Would you like to use Poetry for dependency management?
-  default: false
+  help: This is just to set the variable 'use_poetry' for templating purposes.
+  default: "{{ dependency_management == 'poetry' }}"
+  when: false
+
+use_uv:
+  type: bool
+  help: This is just to set the variable 'use_uv' for templating purposes.
+  default: "{{ dependency_management == 'uv' }}"
+  when: false
+
+use_pip:
+  type: bool
+  help: This is just to set the variable 'use_pip' for templating purposes.
+  default: "{{ dependency_management == 'pip' }}"
+  when: false
 
 use_poetry_dynamic_versioning:
   type: bool
   help: Would you like to use dynamic versioning for Poetry?
   default: false
-  when: "{{ use_poetry }}"
+  when: "{{ dependency_management == 'poetry' }}"
 
 # use_docker:
 #   type: bool

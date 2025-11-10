@@ -20,12 +20,17 @@ jobs:
       {%- if use_poetry %}
       - name: set up Poetry
         uses: abatilo/actions-poetry@v4
+      {%- elif use_uv %}
+      - name: set up uv
+        uses: astral-sh/setup-uv@v6
       {%- endif %}
       - name: set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "{{ python.min(python_versions) }}"
+          {%- if not use_uv %}
           cache: "{% if use_poetry %}poetry{% else %}pip{% endif %}"
+          {%- endif %}
       - name: install dependencies
         run: make install-ci
       - name: {% raw %}${{ matrix.tools.command }}{% endraw %}
@@ -42,13 +47,18 @@ jobs:
       {%- if use_poetry %}
       - name: set up Poetry
         uses: abatilo/actions-poetry@v4
+      {%- elif use_uv %}
+      - name: set up uv
+        uses: astral-sh/setup-uv@v6
       {%- endif %}
       - name: setup up Python
         uses: actions/setup-python@v5
         with:
           python-version: {% raw %}${{ matrix.python }}{% endraw %}
+          {%- if not use_uv %}
           cache: "{% if use_poetry %}poetry{% else %}pip{% endif %}"
+          {%- endif %}
       - name: install dependencies
         run: make install-ci
       - name: pytest
-        run: {%if use_poetry %}poetry run {% endif %}pytest
+        run: {% if use_poetry %}poetry run {% elif use_uv %}uv run {% endif %}pytest

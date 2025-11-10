@@ -131,19 +131,19 @@ def test_poetry_lock(copie: Copie, answers: dict[str, str | list[str]]):
     assert poetry_lock.returncode == 0
 
 
-@pytest.mark.parametrize('use_poetry', ['Poetry', ''])
+@pytest.mark.parametrize('package_management', ['poetry', 'uv', 'pip'])
 @pytest.mark.parametrize('use_rosys', ['RoSys', ''])
 @pytest.mark.parametrize('use_precommit', ['pre-commit', ''])
 @pytest.mark.parametrize('task', ['mypy', 'pylint', 'ruff', 'pytest'])
 def test_code_checkers(copie: Copie,
                        answers: dict[str, str | list[str]],
-                       use_poetry: str,
+                       package_management: str,
                        use_rosys: str,
                        use_precommit: str,
                        task: str):
     # ARRANGE
     result = copie.copy(extra_answers={**answers,
-                                       'use_poetry': bool(use_poetry),
+                                       'package_management': package_management,
                                        'use_rosys': bool(use_rosys),
                                        'use_precommit': bool(use_precommit)})
     arguments = [task] if task == 'pytest' else ['make', task]

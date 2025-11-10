@@ -107,11 +107,7 @@ pre-commit install
 Run tests before submitting:
 
 ```bash
-{%- if use_poetry %}
-poetry run pytest
-{%- else %}
-pytest
-{%- endif %}
+{% if use_poetry %}poetry run {% elif use_uv %}uv run {% endif %}pytest
 ```
 
 Write tests for:

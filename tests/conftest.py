@@ -7,5 +7,5 @@ def fixture_answers() -> dict[str, str | list[str]]:
         'project_name': 'helloworld',
         'project_description': '',
         'module_name': 'hello',
-        'python_versions': ['3.9', '3.10', '3.11']
+        'python_versions': ['3.10', '3.11', '3.12', '3.13'],
     }

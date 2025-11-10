@@ -8,6 +8,7 @@
 2. install [`copier`](https://copier.readthedocs.io/en/stable/) with pipx: `pipx install copier` (tested with `copier==9.7.1`).
 3. it's recommended to use a virtual environment. If you don't have `virtualenv` installed, install it with: `pipx install virtualenv`.
 4. if you want to use Poetry for managing your project's dependencies, install [Poetry](https://python-poetry.org/): `pipx install poetry` (tested with `poetry==2.2.1`).
+5. if you want to use uv for managing your project's dependencies, install [uv](https://astral.sh/uv): `pipx install uv` (tested with `uv==0.9.7`) or see [here](https://docs.astral.sh/uv/getting-started/installation/) for instructions.
 
 ## Quickstart
 
@@ -46,12 +47,11 @@ source .venv/bin/activate # to activate your virtual environment
 5. install standard dependencies to start working:
 
 ```bash
-# with Poetry
+# with Poetry run first:
 poetry lock
-poetry install --with dev
 
-# without poetry
-pip install -r requirements-dev.txt
+# then for all dependency management tools:
+make sync
 ```
 
 6. if you added pre-commit in step 1, do:
@@ -68,18 +68,18 @@ git commit -m "initial commit"
 
 ## Available Questions / Options
 
-| name                          | type    | options      | default                  | explanation                                                                                            |
-| ----------------------------- | ------- | ------------ | ------------------------ | ------------------------------------------------------------------------------------------------------ |
-| project name                  | str     |              | -                        | the project's name as stated in the pyproject.toml                                                     |
-| module name                   | str     |              | same as project name     | the name of the main module in the root directory of the project                                       |
-| project description           | str     |              | -                        | used in the pyproject.toml                                                                             |
-| use poetry                    | boolean | true / false | false                    | use [Poetry](https://python-poetry.org/) to manage the project's dependencies and virtual environment  |
-| use poetry dynamic versioning | boolean | true / false | false                    | use [dynamic versioning for Poetry](https://github.com/mtkennerly/poetry-dynamic-versioning)           |
-| python versions               | str     | 3.9 to 3.15  | [3.11, 3.12, 3.13, 3.14] | defines the required and supported python versions                                                     |
-| use precommit                 | boolean | true / false | false                    | use [pre-commit](https://pre-commit.com/) to check your changes before committing                      |
-| use rosys                     | boolean | true / false | false                    | add [RoSys](https://github.com/zauberzeug/rosys) framework to dependencies                             |
-| include contributing          | boolean | true / false | true                     | include CONTRIBUTING.md with development guidelines (only asked if AI instructions disabled)           |
-| include ai instructions       | boolean | true / false | true                     | include AI agent instructions (AGENT.md, .github/copilot-instructions.md, .cursor/\*, CONTRIBUTING.md) |
+| name                          | type    | options           | default                  | explanation                                                                                                       |
+| ----------------------------- | ------- | ----------------- | ------------------------ | ----------------------------------------------------------------------------------------------------------------- |
+| project name                  | str     |                   | -                        | the project's name as stated in the pyproject.toml                                                                |
+| module name                   | str     |                   | same as project name     | the name of the main module in the root directory of the project                                                  |
+| project description           | str     |                   | -                        | used in the pyproject.toml                                                                                        |
+| dependency management         | str     | uv / pip / poetry | uv                       | choose a dependency management tool: [uv](https://astral.sh/uv), [Poetry](https://python-poetry.org/) or just pip |
+| use poetry dynamic versioning | boolean | true / false      | false                    | use [dynamic versioning for Poetry](https://github.com/mtkennerly/poetry-dynamic-versioning)                      |
+| python versions               | str     | 3.9 to 3.15       | [3.11, 3.12, 3.13, 3.14] | defines the required and supported python versions                                                                |
+| use precommit                 | boolean | true / false      | false                    | use [pre-commit](https://pre-commit.com/) to check your changes before committing                                 |
+| use rosys                     | boolean | true / false      | false                    | add [RoSys](https://github.com/zauberzeug/rosys) framework to dependencies                                        |
+| include contributing          | boolean | true / false      | true                     | include CONTRIBUTING.md with development guidelines (only asked if AI instructions disabled)                      |
+| include ai instructions       | boolean | true / false      | true                     | include AI agent instructions (AGENT.md, .github/copilot-instructions.md, .cursor/\*, CONTRIBUTING.md)            |
 
 ## Contributing Guidelines
 

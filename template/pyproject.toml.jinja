@@ -1,23 +1,13 @@
 {%- import 'py-versions.jinja' as python -%}
+{%- if use_poetry_dynamic_versioning -%}
 [build-system]
 requires = [
-    {%- if use_poetry_dynamic_versioning %}
     "poetry-core>=1.0.0",
     "poetry-dynamic-versioning>=1.0.0,<2.0.0",
-    {%- elif use_poetry %}
-    "poetry-core",
-    {%- else %}
-    "hatchling",
-    {%- endif %}
 ]
-build-backend = "{% if use_poetry_dynamic_versioning -%}
-poetry_dynamic_versioning.backend
-{%- elif use_poetry -%}
-poetry.core.masonry.api
-{%- else -%}
-hatchling.build
-{%- endif %}"
+build-backend = "poetry_dynamic_versioning.backend"
 
+{% endif -%}
 [project]
 name = "{{ project_name }}"
 version = "{% if use_poetry_dynamic_versioning %}0.0.0{% else %}0.1.0-dev{% endif %}"
@@ -25,7 +15,7 @@ description = "{{ project_description }}"
 authors = [{ name="Zauberzeug GmbH", email="info@zauberzeug.com" }]
 readme = "README.md"
 requires-python = "{{ python.range(python_versions) }}"
-{%- if use_poetry %}
+{%- if not use_pip %}
 dependencies = [
     "nicegui >= 2.15.0",
     {%- if use_rosys %}
@@ -35,6 +25,7 @@ dependencies = [
 
 [dependency-groups]
 dev = [
+    {include-group = "types"},
     "mypy (>=1.18.2, <2.0.0)",
     "pylint (>=3.3.3, <4.0.0)",
     {%- if use_precommit %}
@@ -50,12 +41,19 @@ test = [
     "pytest (>=8.3.4, <9.0.0)",
     "pytest-asyncio (>=0.25.3, <0.26.0)",
 ]
+types = [
+]
+{%- endif %}
+{%- if use_poetry %}
 
 [tool.poetry.group.dev]
 optional = true
 
 [tool.poetry.group.test]
 optional = true
+
+[tool.poetry]
+package-mode = false
 {%- endif %}
 {%- if use_poetry_dynamic_versioning %}
 
@@ -63,6 +61,11 @@ optional = true
 enable = true
 vcs = "git"
 style = "pep440"
+{%- endif %}
+{%- if use_uv %}
+
+[tool.uv]
+default-groups = ["dev", "test"]
 {%- endif %}
 
 [tool.mypy]
