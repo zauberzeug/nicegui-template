@@ -36,6 +36,7 @@ GitHub then gives you the necessary commands to connect the origin to your local
 Look out for the part "…or push an existing repository from the command line" and run those commands.
 
 4. create a virtual environment (you can skip this if you're using uv):
+
 ```bash
 virtualenv .venv
 # add -p $PATH_TO_PYTHON_EXECUTABLE to specify a python version, for example:
@@ -55,6 +56,7 @@ make sync
 ```
 
 6. if you added pre-commit in step 1, do:
+
 ```bash
 pre-commit install
 git add .
@@ -62,6 +64,7 @@ git commit -m "initial commit"
 ```
 
 7. start your project:
+
 ```bash
 ./main.py
 ```
@@ -80,6 +83,14 @@ git commit -m "initial commit"
 | use rosys                     | boolean | true / false      | false                    | add [RoSys](https://github.com/zauberzeug/rosys) framework to dependencies                                        |
 | include contributing          | boolean | true / false      | true                     | include CONTRIBUTING.md with development guidelines (only asked if AI instructions disabled)                      |
 | include ai instructions       | boolean | true / false      | true                     | include AI agent instructions (AGENT.md, .github/copilot-instructions.md, .cursor/\*, CONTRIBUTING.md)            |
+
+## Update the template
+
+To update the template or change settings run:
+
+```bash
+copier update
+```
 
 ## Contributing Guidelines
 
