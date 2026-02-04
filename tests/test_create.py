@@ -71,6 +71,7 @@ def test_template_with_contributing_only(copie: Copie, answers: dict[str, str | 
     assert (result.project_dir / 'CONTRIBUTING.md').is_file()
     assert not (result.project_dir / 'AGENTS.md').exists()
     assert not (result.project_dir / '.github' / 'copilot-instructions.md').exists()
+    assert not (result.project_dir / 'CLAUDE.md').exists()
     assert not (result.project_dir / '.cursor' / 'rules' / 'general.mdc').exists()
     # Verify that CONTRIBUTING.md does NOT contain AI section when AI instructions are disabled
     contributing_content = (result.project_dir / 'CONTRIBUTING.md').read_text()
@@ -97,6 +98,8 @@ def test_template_with_ai_instructions(copie: Copie, answers: dict[str, str | li
     assert (result.project_dir / '.cursor' / 'commands' / 'simplify.md').is_file()
     assert (result.project_dir / '.cursor' / 'commands' / 'explain.md').is_file()
     assert (result.project_dir / '.cursor' / 'commands' / 'summarize-branch.md').is_file()
+    assert (result.project_dir / 'CLAUDE.md').is_symlink()
+    assert (result.project_dir / 'CLAUDE.md').resolve() == (result.project_dir / 'AGENTS.md').resolve()
     # Verify that CONTRIBUTING.md contains AI section when AI instructions are enabled
     contributing_content = (result.project_dir / 'CONTRIBUTING.md').read_text()
     assert 'AI-Assisted Contributions' in contributing_content
@@ -116,6 +119,7 @@ def test_template_without_contributing_and_ai(copie: Copie, answers: dict[str, s
     assert not (result.project_dir / 'AGENTS.md').exists()
     assert not (result.project_dir / '.github' / 'copilot-instructions.md').exists()
     assert not (result.project_dir / '.cursor' / 'rules' / 'general.mdc').exists()
+    assert not (result.project_dir / 'CLAUDE.md').exists()
     assert not (result.project_dir / '.cursor' / 'commands').exists()
 
 

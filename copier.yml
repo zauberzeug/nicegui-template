@@ -91,3 +91,6 @@ include_contributing:
   help: Would you like to include a CONTRIBUTING.md file?
   default: true
   when: "{{ not include_ai_instructions }}"
+
+_tasks:
+  - "{% if include_ai_instructions %}ln -s AGENTS.md CLAUDE.md{% else %}true{% endif %}"
