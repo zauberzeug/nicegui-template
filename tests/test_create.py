@@ -98,8 +98,8 @@ def test_template_with_ai_instructions(copie: Copie, answers: dict[str, str | li
     assert (result.project_dir / '.cursor' / 'commands' / 'simplify.md').is_file()
     assert (result.project_dir / '.cursor' / 'commands' / 'explain.md').is_file()
     assert (result.project_dir / '.cursor' / 'commands' / 'summarize-branch.md').is_file()
-    assert (result.project_dir / 'CLAUDE.md').is_symlink()
-    assert (result.project_dir / 'CLAUDE.md').resolve() == (result.project_dir / 'AGENTS.md').resolve()
+    assert (result.project_dir / 'CLAUDE.md').is_file()
+    assert (result.project_dir / 'CLAUDE.md').read_text().strip() == '@AGENTS.md'
     # Verify that CONTRIBUTING.md contains AI section when AI instructions are enabled
     contributing_content = (result.project_dir / 'CONTRIBUTING.md').read_text()
     assert 'AI-Assisted Contributions' in contributing_content
