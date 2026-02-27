@@ -5,14 +5,7 @@ on: [push]
 
 jobs:
   code-checks:
-    strategy:
-      fail-fast: false
-      matrix:
-        tools:
-          - command: "mypy"
-          - command: "pylint"
-          - command: {% if use_precommit %}"pre-commit"{% else %}"ruff"{% endif %}
-    name: {% raw %}code check - ${{ matrix.tools.command }}{% endraw %}
+    name: code checks
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
@@ -22,23 +15,51 @@ jobs:
         uses: abatilo/actions-poetry@v4
       {%- elif use_uv %}
       - name: set up uv
-        uses: astral-sh/setup-uv@v6
+        uses: astral-sh/setup-uv@v7
+        with:
+          enable-cache: true
+          cache-dependency-glob: "uv.lock"
       {%- endif %}
       - name: set up Python
+        {%- if use_uv %}
+        run: uv python install {{ python.min(python_versions) }}
+        {%- else %}
         uses: actions/setup-python@v5
         with:
           python-version: "{{ python.min(python_versions) }}"
-          {%- if not use_uv %}
           cache: "{% if use_poetry %}poetry{% else %}pip{% endif %}"
-          {%- endif %}
+        {%- endif %}
       - name: install dependencies
         run: make install-ci
-      - name: {% raw %}${{ matrix.tools.command }}{% endraw %}
-        run: make {% raw %}${{ matrix.tools.command }}{% endraw %}
+      - name: mypy
+        id: mypy
+        run: make mypy
+        continue-on-error: true
+      - name: pylint
+        id: pylint
+        run: make pylint
+        continue-on-error: true
+      - name: {% if use_precommit %}pre-commit{% else %}ruff{% endif %}
+        id: ruff-or-precommit
+        run: make {% if use_precommit %}pre-commit{% else %}ruff{% endif %}
+        continue-on-error: true
+      - name: check results
+        if: always()
+        run: |
+          echo "| Tool | Result |" >> $GITHUB_STEP_SUMMARY
+          echo "|------|--------|" >> $GITHUB_STEP_SUMMARY
+          echo "| mypy | ${{ steps.mypy.outcome }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| pylint | ${{ steps.pylint.outcome }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| ruff/pre-commit | ${{ steps.ruff-or-precommit.outcome }} |" >> $GITHUB_STEP_SUMMARY
+          if [ "${{ steps.mypy.outcome }}" = "failure" ] || \
+             [ "${{ steps.ruff-or-precommit.outcome }}" = "failure" ] || \
+             [ "${{ steps.pylint.outcome }}" = "failure" ]; then
+            exit 1
+          fi
   test:
     strategy:
       matrix:
-        python: {{ python_versions }}
+        python: {{ python.minmax(python_versions) }}
       fail-fast: false
     runs-on: ubuntu-latest
     timeout-minutes: 10
@@ -49,15 +70,20 @@ jobs:
         uses: abatilo/actions-poetry@v4
       {%- elif use_uv %}
       - name: set up uv
-        uses: astral-sh/setup-uv@v6
+        uses: astral-sh/setup-uv@v7
+        with:
+          enable-cache: true
+          cache-dependency-glob: "uv.lock"
       {%- endif %}
       - name: setup up Python
+        {%- if use_uv %}
+        run: uv python install {{ python.min(python_versions) }}
+        {%- else %}
         uses: actions/setup-python@v5
         with:
-          python-version: {% raw %}${{ matrix.python }}{% endraw %}
-          {%- if not use_uv %}
+          python-version: "{{ python.min(python_versions) }}"
           cache: "{% if use_poetry %}poetry{% else %}pip{% endif %}"
-          {%- endif %}
+        {%- endif %}
       - name: install dependencies
         run: make install-ci
       - name: pytest
