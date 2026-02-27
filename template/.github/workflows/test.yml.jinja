@@ -46,6 +46,7 @@ jobs:
       - name: check results
         if: always()
         run: |
+          {%- raw %}
           echo "| Tool | Result |" >> $GITHUB_STEP_SUMMARY
           echo "|------|--------|" >> $GITHUB_STEP_SUMMARY
           echo "| mypy | ${{ steps.mypy.outcome }} |" >> $GITHUB_STEP_SUMMARY
@@ -56,6 +57,7 @@ jobs:
              [ "${{ steps.pylint.outcome }}" = "failure" ]; then
             exit 1
           fi
+          {%- endraw %}
   test:
     strategy:
       matrix:
