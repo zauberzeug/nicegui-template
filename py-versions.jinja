@@ -22,3 +22,14 @@
 {% macro range(py_versions) -%}
 >={{ min(py_versions) }}, <{{ outside(py_versions) }}
 {%- endmacro -%}
+
+{# Return a list with the min and max python version #}
+{% macro minmax(py_versions) -%}
+{%- set min_version = min(py_versions) -%}
+{%- set max_version = max(py_versions) -%}
+{%- if min_version == max_version -%}
+[{{ min_version }}]
+{%- else -%}
+[{{ min_version}}, {{ max_version}}]
+{%- endif -%}
+{%- endmacro -%}
