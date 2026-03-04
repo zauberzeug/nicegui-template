@@ -1,7 +1,12 @@
 {%- import 'py-versions.jinja' as python -%}
 name: Run Tests
 
-on: [push]
+on:
+  push:
+    paths-ignore:
+      - "**.md"
+      - ".vscode/**"
+      - ".cursor/**"
 
 jobs:
   code-checks:
