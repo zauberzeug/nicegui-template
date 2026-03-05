@@ -1,19 +1,17 @@
 name: Run Tests
 
-on: [push]
+on:
+  push:
+    paths-ignore:
+      - "**.md"
+      - ".vscode/**"
+      - ".cursor/**"
 
 jobs:
   code-checks:
-    strategy:
-      fail-fast: false
-      matrix:
-        tools:
-          - command: ["mypy", "."]
-          - command: ["ruff", "check", "."]
-          - command: ["pylint", "."]
     runs-on: ubuntu-latest
     timeout-minutes: 5
-    name: code check - ${{ matrix.tools.command[0] }}
+    name: code checks
     steps:
       - uses: actions/checkout@v4
       - name: set up uv
@@ -25,8 +23,28 @@ jobs:
         run: uv python install 3.11
       - name: install dependencies
         run: uv sync --locked
-      - name: ${{ matrix.tools.command[0] }}
-        run: uv run ${{ join(matrix.tools.command, ' ') }}
+      - run: uv run ruff check .
+        id: ruff
+        continue-on-error: true
+      - run: uv run mypy .
+        id: mypy
+        continue-on-error: true
+      - run: uv run pylint .
+        id: pylint
+        continue-on-error: true
+      - name: check results
+        if: always()
+        run: |
+          echo "| Tool | Result |" >> $GITHUB_STEP_SUMMARY
+          echo "|------|--------|" >> $GITHUB_STEP_SUMMARY
+          echo "| ruff | ${{ steps.ruff.outcome }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| mypy | ${{ steps.mypy.outcome }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| pylint | ${{ steps.pylint.outcome }} |" >> $GITHUB_STEP_SUMMARY
+          if [ "${{ steps.ruff.outcome }}" = "failure" ] || \
+             [ "${{ steps.mypy.outcome }}" = "failure" ] || \
+             [ "${{ steps.pylint.outcome }}" = "failure" ]; then
+            exit 1
+          fi
 
   test:
     runs-on: ubuntu-latest
