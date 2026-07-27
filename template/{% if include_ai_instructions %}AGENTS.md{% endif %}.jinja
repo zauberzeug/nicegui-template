@@ -36,6 +36,18 @@ When executing plans, pause and ask for confirmation before diverging; if a step
 
 High-level code first; helpers below usage. Aim for <300 lines/file.
 
+## Scratch Files & Dev Server
+
+Put temporary files in the project-root `tmp/` directory instead of `/tmp/`, so they stay co-located and inspectable. Write multi-line snippets to a file there rather than passing them through a shell heredoc.
+
+Start the dev server in the background with its output piped to `run.log`, then read that file to check for errors:
+
+```bash
+{% if use_poetry %}poetry run {% elif use_uv %}uv run {% endif %}./main.py > run.log 2>&1 &
+```
+
+Both `tmp/` and `run.log` are gitignored.
+
 ## Avoid
 
 Global mutable state · blocking I/O in async · broad `except:` without context · debug prints (use logging) · unnecessary complexity · code duplication · unrelated changes

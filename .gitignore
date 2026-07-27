@@ -23,3 +23,7 @@ site/
 .nicegui/
 *.sqlite*
 test.py
+
+.playwright-mcp/
+tmp/
+run.log
