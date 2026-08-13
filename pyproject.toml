@@ -12,6 +12,8 @@ dependencies = [
     "nicegui>=3.2.0",
     "pylint>=4.0.2",
     "pytest>=9.0.0",
+    # NOTE: pytest-asyncio is needed to run the async user tests of the generated projects
+    "pytest-asyncio>=1.2.0",
     "pytest-copie==0.2.2",
     "rosys>=0.30.0",
     "ruff>=0.14.4",

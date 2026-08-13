@@ -17,7 +17,7 @@ readme = "README.md"
 requires-python = "{{ python.range(python_versions) }}"
 {%- if not use_pip %}
 dependencies = [
-    "nicegui >= 2.15.0",
+    "nicegui >= 3.1.0",
     {%- if use_rosys %}
     "rosys >= 0.27.0",
     {%- endif %}
@@ -106,6 +106,8 @@ ignore = [
 [tool.pytest.ini_options]
 pythonpath = ["."]
 asyncio_mode = "auto"
+# NOTE: the user_plugin provides the "user" fixture to simulate user interactions without a browser
+addopts = "-p nicegui.testing.user_plugin"
 # NOTE: changing default location of pytest_cache because the uvicorn file watcher somehow triggered too many reloads
 cache_dir = "../.pytest_cache"
 testpaths = [
