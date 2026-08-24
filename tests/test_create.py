@@ -10,6 +10,7 @@ from pytest_copie.plugin import Copie, Result
 def contains_standard_files(result: Result, project_name: str):
     files = [
         '.copier-answers.yml',
+        '.gitattributes',
         '.gitignore',
         'main.py',
         'README.md',
