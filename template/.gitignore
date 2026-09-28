@@ -20,3 +20,8 @@ __pycache__
 # NiceGUI specific
 .nicegui/
 temp*.py
+
+# AI agent artifacts
+.playwright-mcp/
+tmp/
+run.log
