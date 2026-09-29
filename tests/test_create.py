@@ -15,6 +15,7 @@ def contains_standard_files(result: Result, project_name: str):
         'main.py',
         'README.md',
         'pyproject.toml',
+        'tests/test_main.py',
         project_name + '.code-workspace',
     ]
     all_found = True

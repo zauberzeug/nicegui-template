@@ -1,0 +1,6 @@
+from nicegui.testing import User
+
+
+async def test_home_page(user: User) -> None:
+    await user.open('/')
+    await user.should_see('Hello to your new project: {{ project_name }}!')
